@@ -2,24 +2,34 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, ExternalLink, LogOut, Menu, X } from "lucide-react";
+import { 
+  LayoutDashboard, 
+  UserCheck, 
+  Mail, 
+  Bell, 
+  Calendar, 
+  Image as ImageIcon, 
+  ExternalLink, 
+  LogOut, 
+  Menu, 
+  X,
+  ShieldCheck,
+  ChevronRight
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const NAV_ITEMS = [
+const NAV_MODULES = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Public website", href: "/", icon: ExternalLink },
+  { label: "Admissions & Inquiries", href: "/admin#inquiries", icon: UserCheck, countKey: "enquiries" },
+  { label: "Contact Inquiries", href: "/admin#messages", icon: Mail, countKey: "messages" },
+  { label: "Notices & Circulars", href: "/news", icon: Bell, external: true },
+  { label: "Calendar & Events", href: "/events", icon: Calendar, external: true },
+  { label: "Campus Gallery", href: "/gallery", icon: ImageIcon, external: true },
 ];
 
-const PLANNED = [
-  "Admission enquiries",
-  "Contact messages",
-  "Notices and events",
-  "Gallery media",
-  "Website settings",
-];
-
-export function AdminSidebar({ user }: { user?: { name?: string | null; role?: string | null } }) {
+export function AdminSidebar({ user }: { user?: { name?: string | null; role?: string | null; email?: string | null } }) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const asideRef = React.useRef<HTMLElement>(null);
@@ -75,12 +85,13 @@ export function AdminSidebar({ user }: { user?: { name?: string | null; role?: s
 
   return (
     <>
+      {/* Mobile Top Navigation Trigger */}
       <div className="fixed left-4 top-3 z-50 lg:hidden">
         <button
           type="button"
           onClick={toggle}
-          className="inline-flex size-11 items-center justify-center rounded-lg bg-brand-950 text-white"
-          aria-label={mobileOpen ? "Close admin navigation" : "Open admin navigation"}
+          className="inline-flex size-11 items-center justify-center rounded-xl bg-brand-950 text-white shadow-md border border-white/10"
+          aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
           aria-expanded={mobileOpen}
           aria-controls="admin-sidebar"
         >
@@ -92,94 +103,128 @@ export function AdminSidebar({ user }: { user?: { name?: string | null; role?: s
         ref={asideRef}
         id="admin-sidebar"
         className={cn(
-          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col justify-between border-r border-brand-800 bg-brand-950 text-white transition-transform lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col justify-between border-r border-white/10 bg-brand-950 text-white transition-transform duration-200 lg:translate-x-0 shadow-xl",
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         <div className="flex flex-1 flex-col overflow-y-auto">
-          <div className="flex items-center justify-between border-b border-white/15 p-5">
-            <div>
-              <span className="block text-sm font-extrabold tracking-tight text-white">PURWANCHAL</span>
-              <span className="mt-0.5 block text-[0.65rem] font-bold uppercase tracking-wider text-sun-300">
-                CMS administration
-              </span>
-            </div>
+          {/* Header Brand */}
+          <div className="flex items-center justify-between border-b border-white/10 p-5">
+            <Link href="/admin" className="flex items-center gap-3 group">
+              <div className="size-10 rounded-full bg-white p-1 border border-white/20 shrink-0">
+                <Image
+                  src="/logo/logo-web.png"
+                  alt="School Crest"
+                  width={36}
+                  height={36}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div>
+                <span className="font-serif font-bold text-sm tracking-tight text-white block">
+                  PURWANCHAL
+                </span>
+                <span className="text-[10px] font-semibold text-sun-300 uppercase tracking-wider block">
+                  Executive CMS Portal
+                </span>
+              </div>
+            </Link>
+
             <button
               ref={closeRef}
               type="button"
               onClick={() => setMobileOpen(false)}
-              className="inline-flex size-11 items-center justify-center rounded-lg text-white hover:bg-white/10 lg:hidden"
+              className="inline-flex size-9 items-center justify-center rounded-lg text-white/70 hover:bg-white/10 hover:text-white lg:hidden"
               aria-label="Close admin navigation"
             >
               <X className="size-5" />
             </button>
           </div>
 
-          <nav className="space-y-1 p-4" aria-label="Admin navigation">
-            {NAV_ITEMS.map((item) => {
-              const Icon = item.icon;
-              const isActive = item.href === "/admin" ? pathname === "/admin" : false;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-xs font-semibold",
-                    isActive ? "bg-brand-700 text-white" : "text-white/80 hover:bg-white/10 hover:text-white"
-                  )}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  <Icon aria-hidden="true" className="size-4 shrink-0 text-sun-300" />
-                  <span>{item.label}</span>
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Navigation Links */}
+          <div className="p-4 space-y-6">
+            <div>
+              <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-white/40 mb-2">
+                Operations &amp; Content
+              </p>
+              <nav className="space-y-1" aria-label="Admin Navigation">
+                {NAV_MODULES.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      target={item.external ? "_blank" : undefined}
+                      onClick={() => setMobileOpen(false)}
+                      className={cn(
+                        "flex min-h-[42px] items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold transition-all",
+                        isActive
+                          ? "bg-brand-700 text-white shadow-xs"
+                          : "text-white/75 hover:bg-white/10 hover:text-white"
+                      )}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <Icon className={cn("size-4 shrink-0", isActive ? "text-sun-300" : "text-white/60")} aria-hidden="true" />
+                        <span>{item.label}</span>
+                      </div>
+                      {item.external && (
+                        <ExternalLink className="size-3 text-white/40 shrink-0" />
+                      )}
+                    </Link>
+                  );
+                })}
+              </nav>
+            </div>
 
-          <div className="px-5 py-4">
-            <p className="text-[0.65rem] font-bold uppercase tracking-wider text-sun-300">Planned screens</p>
-            <ul className="mt-2 space-y-1 text-xs text-white/80">
-              {PLANNED.map((item) => (
-                <li key={item} className="flex min-h-11 items-center">{item}</li>
-              ))}
-            </ul>
-            <p className="mt-2 text-[0.7rem] leading-relaxed text-white/80">
-              Management screens are not available yet.
-            </p>
+            {/* Institutional Information */}
+            <div className="rounded-xl border border-white/10 bg-white/5 p-4 text-xs">
+              <div className="flex items-center gap-2 text-sun-300 font-bold">
+                <ShieldCheck className="size-4" />
+                <span>Verified Portal</span>
+              </div>
+              <p className="mt-1.5 text-[11px] text-white/70 leading-relaxed">
+                School administration node: Itahari-20, Tarahara. All activity logged for security.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div className="space-y-3 border-t border-white/15 bg-brand-950 p-4">
-          <div className="flex items-center justify-between gap-2 text-xs">
+        {/* User Session Footer */}
+        <div className="border-t border-white/10 bg-brand-950/80 p-4 space-y-3">
+          <div className="flex items-center justify-between gap-3 text-xs">
             <div className="flex min-w-0 flex-col">
-              <span className="truncate font-semibold text-white">{user?.name || "Administrator"}</span>
-              <span className="text-[0.65rem] uppercase tracking-wider text-sun-300">
-                {user?.role || "Admin"}
+              <span className="truncate font-serif font-bold text-sm text-white">
+                {user?.name || user?.email?.split("@")[0] || "Administrator"}
+              </span>
+              <span className="text-[10px] uppercase tracking-wider text-sun-300 font-semibold">
+                {user?.role || "Staff Admin"}
               </span>
             </div>
+            
             <Link
               href="/"
               target="_blank"
-              className="inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-white/80 hover:bg-white/10 hover:text-white"
-              aria-label="View public website in a new tab"
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-white/15 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
+              title="Open Public School Website"
             >
-              <ExternalLink aria-hidden="true" className="size-4" />
+              <ExternalLink className="size-4" />
             </Link>
           </div>
 
           <form action="/api/auth/signout" method="POST">
             <button
               type="submit"
-              className="flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-xs font-semibold text-white hover:bg-white/10"
+              className="flex min-h-[40px] w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/5 px-3 py-2 text-xs font-semibold text-white/90 hover:bg-white/10 hover:text-white transition-colors"
             >
-              <LogOut aria-hidden="true" className="size-4" />
-              <span>Sign out</span>
+              <LogOut className="size-3.5" aria-hidden="true" />
+              <span>Sign Out</span>
             </button>
           </form>
         </div>
       </aside>
 
+      {/* Backdrop for mobile */}
       {mobileOpen && (
         <button
           type="button"
