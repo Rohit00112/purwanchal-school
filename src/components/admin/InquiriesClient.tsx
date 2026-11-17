@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { updateInquiryStatus, deleteInquiry } from "@/server/actions/admin";
 import { formatDateShort } from "@/lib/utils";
+import { adToBs } from "@/lib/utils/nepaliDate";
 import { InquiryStatus } from "@prisma/client";
 
 interface InquiryItem {
@@ -334,8 +335,12 @@ export function InquiriesClient({ initialInquiries }: { initialInquiries: Inquir
                     </td>
 
                     <td className="py-3.5 px-4 text-slate-500 whitespace-nowrap">
-                      <div>{formatDateShort(item.submittedAt)}</div>
-                      <span className="text-[10px] text-slate-400">Session {item.academicYear || "2081/2082"}</span>
+                      <div className="font-semibold text-slate-800">
+                        {adToBs(item.submittedAt).formattedNepali}
+                      </div>
+                      <div className="text-[11px] text-slate-400 font-mono">
+                        AD: {formatDateShort(item.submittedAt)}
+                      </div>
                     </td>
 
                     <td className="py-3.5 px-4 whitespace-nowrap">

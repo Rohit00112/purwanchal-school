@@ -21,7 +21,9 @@ import {
   EventFormData 
 } from "@/server/actions/admin";
 import { ImageUpload } from "@/components/admin/ImageUpload";
+import { DualDatePicker } from "@/components/admin/DualDatePicker";
 import { formatDateShort } from "@/lib/utils";
+import { adToBs } from "@/lib/utils/nepaliDate";
 import { PublicationStatus } from "@prisma/client";
 
 interface EventItem {
@@ -278,11 +280,14 @@ export function EventsClient({ initialEvents }: { initialEvents: EventItem[] }) 
 
                     <td className="py-3.5 px-4 whitespace-nowrap">
                       <div className="font-semibold text-slate-800">
-                        {formatDateShort(item.startDate)}
+                        {adToBs(item.startDate).formattedNepali}
+                      </div>
+                      <div className="text-[11px] text-slate-500 font-mono">
+                        AD: {formatDateShort(item.startDate)}
                       </div>
                       {item.endDate && (
-                        <div className="text-[10px] text-slate-400">
-                          through {formatDateShort(item.endDate)}
+                        <div className="text-[10px] text-slate-400 mt-0.5">
+                          to {adToBs(item.endDate).formattedNepali}
                         </div>
                       )}
                     </td>
@@ -390,30 +395,18 @@ export function EventsClient({ initialEvents }: { initialEvents: EventItem[] }) 
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">
-                    Start Date *
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    value={formStartDate}
-                    onChange={(e) => setFormStartDate(e.target.value)}
-                    className="w-full rounded-lg border border-line p-2.5 text-xs text-ink focus:outline-hidden focus:ring-2 focus:ring-brand-700"
-                  />
-                </div>
+                <DualDatePicker
+                  value={formStartDate}
+                  onChange={setFormStartDate}
+                  label="Event Start Date (BS & AD)"
+                  required
+                />
 
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">
-                    End Date (Optional)
-                  </label>
-                  <input
-                    type="date"
-                    value={formEndDate}
-                    onChange={(e) => setFormEndDate(e.target.value)}
-                    className="w-full rounded-lg border border-line p-2.5 text-xs text-ink focus:outline-hidden focus:ring-2 focus:ring-brand-700"
-                  />
-                </div>
+                <DualDatePicker
+                  value={formEndDate}
+                  onChange={setFormEndDate}
+                  label="Event End Date (BS & AD - Optional)"
+                />
               </div>
 
               <div>

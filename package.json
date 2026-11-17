@@ -35,6 +35,7 @@
     "date-fns": "^4.4.0",
     "framer-motion": "^14.14.0",
     "lucide-react": "^1.74.0",
+    "nepali-date-converter": "^3.4.2",
     "next": "16.4.6",
     "next-auth": "^5.0.0-beta.32",
     "prisma": "6.19.3",

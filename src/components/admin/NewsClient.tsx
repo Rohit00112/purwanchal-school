@@ -23,6 +23,7 @@ import {
 } from "@/server/actions/admin";
 import { ImageUpload } from "@/components/admin/ImageUpload";
 import { formatDateShort } from "@/lib/utils";
+import { adToBs } from "@/lib/utils/nepaliDate";
 import { PublicationStatus } from "@prisma/client";
 
 interface Category {
@@ -310,7 +311,12 @@ export function NewsClient({
                     </td>
 
                     <td className="py-3.5 px-4 text-slate-500 whitespace-nowrap">
-                      {formatDateShort(item.publishedAt || item.createdAt)}
+                      <div className="font-semibold text-slate-800">
+                        {adToBs(item.publishedAt || item.createdAt).formattedNepali}
+                      </div>
+                      <div className="text-[11px] text-slate-400 font-mono">
+                        AD: {formatDateShort(item.publishedAt || item.createdAt)}
+                      </div>
                     </td>
 
                     <td className="py-3.5 px-4 whitespace-nowrap">
