@@ -10,7 +10,8 @@ import {
   Mail, 
   Bell, 
   Calendar, 
-  Image as ImageIcon, 
+  Image as ImageIcon,
+  Settings,
   ExternalLink, 
   LogOut, 
   Menu, 
@@ -21,12 +22,13 @@ import {
 import { cn } from "@/lib/utils";
 
 const NAV_MODULES = [
-  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Admissions & Inquiries", href: "/admin#inquiries", icon: UserCheck, countKey: "enquiries" },
-  { label: "Contact Inquiries", href: "/admin#messages", icon: Mail, countKey: "messages" },
-  { label: "Notices & Circulars", href: "/news", icon: Bell, external: true },
-  { label: "Calendar & Events", href: "/events", icon: Calendar, external: true },
-  { label: "Campus Gallery", href: "/gallery", icon: ImageIcon, external: true },
+  { label: "Dashboard", href: "/admin", icon: LayoutDashboard, exact: true },
+  { label: "Admissions & Inquiries", href: "/admin/inquiries", icon: UserCheck },
+  { label: "Contact Inquiries", href: "/admin/contacts", icon: Mail },
+  { label: "Notices & Circulars", href: "/admin/news", icon: Bell },
+  { label: "Calendar & Events", href: "/admin/events", icon: Calendar },
+  { label: "Campus Gallery", href: "/admin/gallery", icon: ImageIcon },
+  { label: "School Settings", href: "/admin/settings", icon: Settings },
 ];
 
 export function AdminSidebar({ user }: { user?: { name?: string | null; role?: string | null; email?: string | null } }) {
@@ -150,17 +152,18 @@ export function AdminSidebar({ user }: { user?: { name?: string | null; role?: s
               <nav className="space-y-1" aria-label="Admin Navigation">
                 {NAV_MODULES.map((item) => {
                   const Icon = item.icon;
-                  const isActive = pathname === item.href;
+                  const isActive = item.exact
+                    ? pathname === item.href
+                    : pathname === item.href || pathname.startsWith(item.href + "/");
                   return (
                     <Link
                       key={item.label}
                       href={item.href}
-                      target={item.external ? "_blank" : undefined}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
                         "flex min-h-[42px] items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold transition-all",
                         isActive
-                          ? "bg-brand-700 text-white shadow-xs"
+                          ? "bg-brand-700 text-white shadow-xs font-bold"
                           : "text-white/75 hover:bg-white/10 hover:text-white"
                       )}
                     >
@@ -168,9 +171,7 @@ export function AdminSidebar({ user }: { user?: { name?: string | null; role?: s
                         <Icon className={cn("size-4 shrink-0", isActive ? "text-sun-300" : "text-white/60")} aria-hidden="true" />
                         <span>{item.label}</span>
                       </div>
-                      {item.external && (
-                        <ExternalLink className="size-3 text-white/40 shrink-0" />
-                      )}
+                      <ChevronRight className={cn("size-3 shrink-0 transition-transform", isActive ? "text-sun-300 translate-x-0.5" : "text-white/20")} />
                     </Link>
                   );
                 })}

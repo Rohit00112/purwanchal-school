@@ -101,12 +101,15 @@ export default async function AdminRootPage() {
 
       {/* 4 Primary Metric Stat Cards */}
       <section aria-labelledby="overview-stats">
-        <h2 id="overview-stats" className="font-serif text-lg font-bold text-ink mb-4">
-          Overview &amp; School Activity
-        </h2>
+        <div className="flex items-center justify-between mb-4">
+          <h2 id="overview-stats" className="font-serif text-lg font-bold text-ink">
+            Overview &amp; School Activity
+          </h2>
+          <span className="text-xs text-slate-500">Live Database Counters</span>
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="card-interactive rounded-xl border border-line bg-white p-5 shadow-xs">
+          <Link href="/admin/inquiries" className="card-interactive block rounded-xl border border-line bg-white p-5 shadow-xs hover:border-brand-300 transition-all">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Admission Inquiries
@@ -118,12 +121,13 @@ export default async function AdminRootPage() {
             <p className="mt-3 font-serif text-3xl font-bold text-ink">
               {counts.enquiries}
             </p>
-            <p className="mt-1 text-xs text-slate-500 flex items-center gap-1">
-              <span>Applications submitted online</span>
+            <p className="mt-1 text-xs text-brand-700 font-medium flex items-center justify-between">
+              <span>View &amp; manage applicants</span>
+              <ArrowRight className="size-3" />
             </p>
-          </div>
+          </Link>
 
-          <div className="card-interactive rounded-xl border border-line bg-white p-5 shadow-xs">
+          <Link href="/admin/contacts" className="card-interactive block rounded-xl border border-line bg-white p-5 shadow-xs hover:border-sun-400 transition-all">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Contact Messages
@@ -135,12 +139,13 @@ export default async function AdminRootPage() {
             <p className="mt-3 font-serif text-3xl font-bold text-ink">
               {counts.messages}
             </p>
-            <p className="mt-1 text-xs text-slate-500 flex items-center gap-1">
-              <span>Inquiries via contact form</span>
+            <p className="mt-1 text-xs text-sun-600 font-medium flex items-center justify-between">
+              <span>Review inbox messages</span>
+              <ArrowRight className="size-3" />
             </p>
-          </div>
+          </Link>
 
-          <div className="card-interactive rounded-xl border border-line bg-white p-5 shadow-xs">
+          <Link href="/admin/news" className="card-interactive block rounded-xl border border-line bg-white p-5 shadow-xs hover:border-brand-300 transition-all">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Active Notices
@@ -152,12 +157,13 @@ export default async function AdminRootPage() {
             <p className="mt-3 font-serif text-3xl font-bold text-ink">
               {counts.notices}
             </p>
-            <p className="mt-1 text-xs text-slate-500 flex items-center gap-1">
-              <span>Published on public bulletin</span>
+            <p className="mt-1 text-xs text-brand-700 font-medium flex items-center justify-between">
+              <span>Manage bulletins &amp; circulars</span>
+              <ArrowRight className="size-3" />
             </p>
-          </div>
+          </Link>
 
-          <div className="card-interactive rounded-xl border border-line bg-white p-5 shadow-xs">
+          <Link href="/admin/events" className="card-interactive block rounded-xl border border-line bg-white p-5 shadow-xs hover:border-sun-400 transition-all">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
                 Calendar Events
@@ -169,10 +175,11 @@ export default async function AdminRootPage() {
             <p className="mt-3 font-serif text-3xl font-bold text-ink">
               {counts.events}
             </p>
-            <p className="mt-1 text-xs text-slate-500 flex items-center gap-1">
-              <span>Scheduled academic events</span>
+            <p className="mt-1 text-xs text-sun-600 font-medium flex items-center justify-between">
+              <span>Organize school schedule</span>
+              <ArrowRight className="size-3" />
             </p>
-          </div>
+          </Link>
         </div>
       </section>
 
@@ -191,10 +198,10 @@ export default async function AdminRootPage() {
               </p>
             </div>
             <Link
-              href="/admissions"
+              href="/admin/inquiries"
               className="text-xs font-bold text-brand-700 hover:underline"
             >
-              Public Form →
+              Manage Inquiries ({counts.enquiries}) →
             </Link>
           </div>
 
@@ -266,10 +273,10 @@ export default async function AdminRootPage() {
               </p>
             </div>
             <Link
-              href="/contact"
-              className="text-xs font-bold text-brand-700 hover:underline"
+              href="/admin/contacts"
+              className="text-xs font-bold text-sun-600 hover:underline"
             >
-              Public Page →
+              Manage Messages ({counts.messages}) →
             </Link>
           </div>
 

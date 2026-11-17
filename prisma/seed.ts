@@ -252,6 +252,99 @@ Please coordinate with your respective route drivers. Contact the transport supe
   }
   console.log(`✅ Seeded ${sampleMessages.length} sample contact messages`);
 
+  // 7. School Profile
+  await prisma.schoolProfile.deleteMany({});
+  await prisma.schoolProfile.create({
+    data: {
+      name: "Purwanchal Secondary Boarding School",
+      nameNepali: "पूर्वाञ्चल माध्यमिक आवासीय विद्यालय",
+      tagline: "Building Knowledge. Inspiring Futures with Discipline & Character.",
+      description: "Established in 1994 AD (2051 BS) in Itahari-20, Tarahara, Sunsari. Providing disciplined, high-standard education from Nursery to Grade 12 (+2 Management, Computer Science, and Education).",
+      address: "Itahari-20, Tarahara, Sunsari, Koshi Province, Nepal",
+      phone: "+977-25-475403",
+      email: "info@purwanchalschool.edu.np",
+      website: "https://purwanchalschool.edu.np",
+      facebookUrl: "https://www.facebook.com/purwanchalschool",
+      establishedYear: 1994,
+      officeHoursStart: "9:00 AM",
+      officeHoursEnd: "4:30 PM",
+    },
+  });
+  console.log("✅ Seeded official school profile");
+
+  // 8. Gallery Categories & Media
+  const galleryCatData = [
+    { name: "Campus & Architecture", slug: "campus-architecture", sortOrder: 1 },
+    { name: "Science & Computing Labs", slug: "science-computing-labs", sortOrder: 2 },
+    { name: "Sports & Athletics", slug: "sports-athletics", sortOrder: 3 },
+    { name: "Cultural & Annual Functions", slug: "cultural-annual-functions", sortOrder: 4 },
+  ];
+
+  const galleryCats = await Promise.all(
+    galleryCatData.map((cat) =>
+      prisma.galleryCategory.upsert({
+        where: { slug: cat.slug },
+        update: { name: cat.name, sortOrder: cat.sortOrder },
+        create: cat,
+      })
+    )
+  );
+  const galleryCatMap = Object.fromEntries(galleryCats.map((c) => [c.slug, c.id]));
+
+  const sampleGalleryMedia = [
+    {
+      title: "Main Campus Academic Building",
+      description: "Three-storey academic block with spacious, well-ventilated classrooms and administrative office in Tarahara.",
+      imageUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80",
+      categoryId: galleryCatMap["campus-architecture"],
+      isFeatured: true,
+      isPublished: true,
+      sortOrder: 1,
+    },
+    {
+      title: "Senior Secondary Computer Laboratory",
+      description: "Modern network workstations for practical programming, Office automation, and +2 Computer Science curricula.",
+      imageUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+      categoryId: galleryCatMap["science-computing-labs"],
+      isFeatured: true,
+      isPublished: true,
+      sortOrder: 2,
+    },
+    {
+      title: "Inter-House Track & Sports Tournament",
+      description: "Students competing in 100m sprint heats during the Annual Purwanchal Athletic Meet.",
+      imageUrl: "https://images.unsplash.com/photo-1526676037777-05a232554f77?auto=format&fit=crop&w=1200&q=80",
+      categoryId: galleryCatMap["sports-athletics"],
+      isFeatured: true,
+      isPublished: true,
+      sortOrder: 3,
+    },
+    {
+      title: "Annual Day Cultural Performance",
+      description: "Traditional Nepali dance presented by secondary wing students during the 30th Anniversary Celebrations.",
+      imageUrl: "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80",
+      categoryId: galleryCatMap["cultural-annual-functions"],
+      isFeatured: true,
+      isPublished: true,
+      sortOrder: 4,
+    },
+    {
+      title: "Physics & Chemistry Practical Laboratory",
+      description: "Supervised experimental stations equipped for secondary science curricula and board examinations.",
+      imageUrl: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
+      categoryId: galleryCatMap["science-computing-labs"],
+      isFeatured: false,
+      isPublished: true,
+      sortOrder: 5,
+    },
+  ];
+
+  await prisma.galleryMedia.deleteMany({});
+  for (const media of sampleGalleryMedia) {
+    await prisma.galleryMedia.create({ data: media });
+  }
+  console.log(`✅ Seeded ${sampleGalleryMedia.length} gallery media items`);
+
   console.log("✨ Seeding completed successfully!");
 }
 

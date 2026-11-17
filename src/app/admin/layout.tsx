@@ -34,7 +34,7 @@ export default async function AdminLayout({
             <div className="flex items-center gap-4">
               <div className="hidden md:flex items-center gap-2 text-xs text-slate-500 border-r border-line pr-4">
                 <Clock className="size-3.5 text-brand-700" />
-                <span>Office: 9:00 AM – 4:30 PM</span>
+                <span>Office: 9:00 AM - 4:30 PM</span>
               </div>
 
               <Link
