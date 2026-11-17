@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { SettingsClient } from "@/components/admin/SettingsClient";
 
+export const instant = false;
+
 export const metadata = {
   title: "School Profile & Settings | Administrative Portal",
   description: "Configure school contact details, official parameters, and administrative preferences.",

@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { GalleryClient } from "@/components/admin/GalleryClient";
 
+export const instant = false;
+
 export const metadata = {
   title: "Campus Gallery CMS | Administrative Portal",
   description: "Manage campus photographs and event galleries for Purwanchal Secondary Boarding School.",

@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { ContactsClient } from "@/components/admin/ContactsClient";
 
+export const instant = false;
+
 export const metadata = {
   title: "Contact Messages | Administrative Portal",
   description: "Manage contact messages and general inquiries for Purwanchal Secondary Boarding School.",

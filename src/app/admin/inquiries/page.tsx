@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { InquiriesClient } from "@/components/admin/InquiriesClient";
 
+export const instant = false;
+
 export const metadata = {
   title: "Admission Inquiries | Administrative Portal",
   description: "Manage admission inquiries and applications for Purwanchal Secondary Boarding School.",

@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { EventsClient } from "@/components/admin/EventsClient";
 
+export const instant = false;
+
 export const metadata = {
   title: "Calendar & Events CMS | Administrative Portal",
   description: "Manage school events and academic calendar for Purwanchal Secondary Boarding School.",

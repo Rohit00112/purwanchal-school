@@ -3,6 +3,8 @@ import { auth } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { NewsClient } from "@/components/admin/NewsClient";
 
+export const instant = false;
+
 export const metadata = {
   title: "Notices & Circulars CMS | Administrative Portal",
   description: "Create, edit, and publish school notices and circulars for Purwanchal Secondary Boarding School.",
