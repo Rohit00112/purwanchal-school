@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Phone, MapPin, CheckCircle } from "lucide-react";
+import { ArrowRight, Phone, CheckCircle } from "lucide-react";
 import { images } from "@/config/images";
 import { siteConfig } from "@/config/site";
+import { Reveal, StaggerContainer, StaggerItem } from "@/components/shared/Reveal";
 
 const credentials = [
   {
@@ -29,13 +30,13 @@ const credentials = [
 
 export function HeroSection() {
   return (
-    <section className="bg-white border-b border-line">
+    <section className="bg-white border-b border-line overflow-hidden">
       {/* Main Hero Split */}
       <div className="shell pt-10 pb-14 sm:pt-14 sm:pb-16 lg:pt-16 lg:pb-20">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           
           {/* Left Column: Institutional Story & Identity */}
-          <div className="lg:col-span-7">
+          <Reveal className="lg:col-span-7" delay={0.05} y={15}>
             {/* Authentic Institutional Header Tag */}
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-brand-700">
               <span>Estd. 1994 AD / 2051 BS</span>
@@ -45,7 +46,7 @@ export function HeroSection() {
               <span>NEB Nepal</span>
             </div>
 
-            {/* Clear Editorial Headline without AI italic gimmicks */}
+            {/* Clear Editorial Headline */}
             <h1 className="mt-4 font-serif text-3xl font-bold tracking-tight text-ink sm:text-5xl lg:text-[3.25rem] leading-[1.12]">
               Purwanchal Secondary Boarding School
             </h1>
@@ -60,14 +61,14 @@ export function HeroSection() {
               and Higher Secondary (+2) in Management, Computer Science, and Education.
             </p>
 
-            {/* Direct Action Buttons */}
+            {/* Direct Action Buttons with Micro-transitions */}
             <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <Link
                 href="/admissions"
-                className="btn btn-primary !px-6 !py-3.5 !text-sm !font-bold shadow-xs"
+                className="btn btn-primary group !px-6 !py-3.5 !text-sm !font-bold shadow-xs"
               >
                 Apply for Admission
-                <ArrowRight className="size-4" aria-hidden="true" />
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
               </Link>
               <Link
                 href="/academics"
@@ -85,17 +86,17 @@ export function HeroSection() {
               </span>
               <a
                 href={`tel:${siteConfig.phone}`}
-                className="flex items-center gap-1.5 font-semibold text-brand-700 hover:underline"
+                className="flex items-center gap-1.5 font-semibold text-brand-700 hover:underline transition-colors"
               >
                 <Phone className="size-3.5" aria-hidden="true" />
                 Office: {siteConfig.phone}
               </a>
             </div>
-          </div>
+          </Reveal>
 
-          {/* Right Column: Grounded Campus Photograph (No Floating Glass Cards) */}
-          <div className="lg:col-span-5">
-            <div className="overflow-hidden rounded-xl border border-line bg-slate-bg shadow-sm">
+          {/* Right Column: Campus Photograph with Gentle Zoom on Card Hover */}
+          <Reveal className="lg:col-span-5" delay={0.2} y={20}>
+            <div className="group overflow-hidden rounded-xl border border-line bg-slate-bg shadow-sm transition-shadow duration-300 hover:shadow-md">
               <div className="relative aspect-[4/3.2] w-full overflow-hidden bg-slate-100 sm:aspect-[4/3.4]">
                 <Image
                   src={images.campusWide}
@@ -103,12 +104,12 @@ export function HeroSection() {
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
               </div>
 
-              {/* Clean, authentic caption strip below the image (not floating on top) */}
-              <div className="border-t border-line bg-white p-4">
+              {/* Clean caption strip */}
+              <div className="border-t border-line bg-white p-4 transition-colors group-hover:bg-slate-50/60">
                 <div className="flex items-start justify-between gap-3">
                   <div>
                     <p className="font-serif text-sm font-bold text-ink">
@@ -124,17 +125,17 @@ export function HeroSection() {
                 </div>
               </div>
             </div>
-          </div>
+          </Reveal>
 
         </div>
       </div>
 
-      {/* Horizontal Institutional Credentials Strip (Clean & Tabular, NOT floating bento cards) */}
+      {/* Horizontal Institutional Credentials Strip with Staggered Entrance */}
       <div className="border-t border-line bg-slate-bg">
         <div className="shell py-6">
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:divide-x lg:divide-line">
+          <StaggerContainer className="grid grid-cols-2 gap-6 sm:grid-cols-4 lg:divide-x lg:divide-line" staggerDelay={0.07}>
             {credentials.map((item, idx) => (
-              <div
+              <StaggerItem
                 key={item.title}
                 className={idx > 0 ? "lg:pl-6" : ""}
               >
@@ -147,9 +148,9 @@ export function HeroSection() {
                 <p className="mt-0.5 text-xs text-slate-500 leading-snug">
                   {item.desc}
                 </p>
-              </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
         </div>
       </div>
     </section>

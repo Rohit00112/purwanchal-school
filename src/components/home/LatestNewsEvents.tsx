@@ -3,11 +3,11 @@ import {
   Bell, 
   Calendar, 
   ArrowRight, 
-  FileText, 
   Clock, 
   ChevronRight
 } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Reveal, StaggerContainer, StaggerItem } from "@/components/shared/Reveal";
 
 const sampleNotices = [
   {
@@ -59,7 +59,7 @@ const sampleEvents = [
 
 export function LatestNewsEvents() {
   return (
-    <section className="bg-slate-bg py-20 sm:py-24 lg:py-28 border-b border-line">
+    <section className="bg-slate-bg py-16 sm:py-20 lg:py-24 border-b border-line overflow-hidden">
       <div className="shell">
         <SectionHeading
           badge="Notice Board & Calendar"
@@ -69,7 +69,7 @@ export function LatestNewsEvents() {
 
         <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-10">
           {/* Left Column: Official Notices (7 cols) */}
-          <div className="lg:col-span-7">
+          <Reveal className="lg:col-span-7" delay={0.1} y={15}>
             <div className="flex items-center justify-between border-b border-line pb-4">
               <div className="flex items-center gap-2">
                 <Bell className="size-5 text-brand-700" aria-hidden="true" />
@@ -79,9 +79,9 @@ export function LatestNewsEvents() {
               </div>
               <Link
                 href="/news"
-                className="inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:text-brand-900"
+                className="inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:text-brand-900 group"
               >
-                All Notices <ChevronRight className="size-4 ml-0.5" />
+                All Notices <ChevronRight className="size-4 ml-0.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
@@ -89,21 +89,21 @@ export function LatestNewsEvents() {
               {sampleNotices.map((notice) => (
                 <article
                   key={notice.title}
-                  className="group rounded-xl border border-line bg-white p-5 transition-all duration-200 hover:border-brand-700 hover:shadow-xs"
+                  className="card-interactive group rounded-xl border border-line bg-white p-5 hover:border-brand-700"
                 >
                   <div className="flex flex-wrap items-center gap-2 text-xs">
-                    <span className="rounded-md bg-brand-50 px-2 py-0.5 font-bold uppercase tracking-wide text-brand-700">
+                    <span className="rounded bg-brand-50 px-2 py-0.5 font-bold uppercase tracking-wide text-brand-700">
                       {notice.category}
                     </span>
-                    <span className="text-ink-faint">·</span>
-                    <span className="text-ink-soft">{notice.date}</span>
+                    <span className="text-slate-300">·</span>
+                    <span className="text-slate-500">{notice.date}</span>
                   </div>
 
                   <h4 className="mt-2.5 font-serif text-base font-bold text-ink group-hover:text-brand-700 transition-colors">
                     {notice.title}
                   </h4>
 
-                  <p className="mt-2 text-xs leading-relaxed text-ink-soft">
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600">
                     {notice.desc}
                   </p>
 
@@ -112,16 +112,16 @@ export function LatestNewsEvents() {
                       href="/news"
                       className="inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 group-hover:underline"
                     >
-                      Read full circular <ArrowRight className="size-3.5 ml-1.5" />
+                      Read full circular <ArrowRight className="size-3.5 ml-1.5 transition-transform group-hover:translate-x-1" />
                     </Link>
                   </div>
                 </article>
               ))}
             </div>
-          </div>
+          </Reveal>
 
           {/* Right Column: Upcoming Events Calendar (5 cols) */}
-          <div className="lg:col-span-5">
+          <Reveal className="lg:col-span-5" delay={0.2} y={15}>
             <div className="flex items-center justify-between border-b border-line pb-4">
               <div className="flex items-center gap-2">
                 <Calendar className="size-5 text-sun-500" aria-hidden="true" />
@@ -131,9 +131,9 @@ export function LatestNewsEvents() {
               </div>
               <Link
                 href="/events"
-                className="inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:text-brand-900"
+                className="inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:text-brand-900 group"
               >
-                Full Calendar <ChevronRight className="size-4 ml-0.5" />
+                Full Calendar <ChevronRight className="size-4 ml-0.5 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
 
@@ -141,10 +141,10 @@ export function LatestNewsEvents() {
               {sampleEvents.map((ev) => (
                 <div
                   key={ev.title}
-                  className="flex items-start gap-4 rounded-xl border border-line bg-white p-4 transition-all duration-200 hover:border-brand-300"
+                  className="card-interactive flex items-start gap-4 rounded-xl border border-line bg-white p-4 hover:border-brand-300"
                 >
                   {/* Date Badge */}
-                  <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-xl bg-brand-900 text-white shadow-xs">
+                  <div className="flex size-14 shrink-0 flex-col items-center justify-center rounded-lg bg-brand-900 text-white shadow-xs">
                     <span className="text-[10px] font-extrabold uppercase tracking-wider text-sun-300">
                       {ev.month}
                     </span>
@@ -154,15 +154,15 @@ export function LatestNewsEvents() {
                   </div>
 
                   {/* Event Details */}
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <h4 className="font-serif text-sm font-bold text-ink">
                       {ev.title}
                     </h4>
-                    <p className="mt-1 flex items-center gap-1.5 text-xs text-ink-soft">
+                    <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
                       <Clock className="size-3 text-brand-600 shrink-0" aria-hidden="true" />
                       {ev.time}
                     </p>
-                    <p className="mt-0.5 text-xs text-ink-faint">
+                    <p className="mt-0.5 text-xs text-slate-500 truncate">
                       {ev.venue}
                     </p>
                   </div>
@@ -170,7 +170,7 @@ export function LatestNewsEvents() {
               ))}
             </div>
 
-            {/* Quick Circular Hotline Box */}
+            {/* Quick Circular Information Box */}
             <div className="mt-6 rounded-xl border border-brand-200 bg-brand-50 p-5">
               <h4 className="font-serif text-sm font-bold text-brand-900">
                 Official SMS &amp; Mobile Notices
@@ -187,7 +187,7 @@ export function LatestNewsEvents() {
                 </Link>
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -151,8 +151,8 @@ export function Header() {
 
       <div
         className={cn(
-          "border-b transition-colors",
-          scrolled ? "border-line bg-white" : "border-transparent bg-white"
+          "transition-all duration-300",
+          scrolled ? "border-b border-line bg-white/95 backdrop-blur-md shadow-xs" : "border-b border-transparent bg-white"
         )}
       >
         <div className="shell flex h-[72px] items-center justify-between gap-4">
@@ -195,20 +195,22 @@ export function Header() {
                     <div
                       id={panelId}
                       className={cn(
-                        "absolute left-0 top-full w-[19rem] pt-3",
-                        openDropdown === item.label ? "block" : "hidden"
+                        "absolute left-0 top-full w-[19rem] pt-2 transition-all duration-200 ease-out z-50",
+                        openDropdown === item.label
+                          ? "opacity-100 translate-y-0 pointer-events-auto"
+                          : "opacity-0 -translate-y-1 pointer-events-none"
                       )}
                     >
-                      <div className="rounded-lg border border-line bg-white p-2">
+                      <div className="rounded-xl border border-line bg-white p-2 shadow-lg">
                         {item.children.map((child) => (
                           <Link
                             key={child.label}
                             href={child.href}
                             onClick={() => setOpenDropdown(null)}
-                            className="flex min-h-11 items-start rounded-lg px-3 py-2 transition-colors hover:bg-brand-50"
+                            className="flex min-h-11 items-start rounded-lg px-3 py-2 transition-colors hover:bg-brand-50/80 group"
                           >
                             <span>
-                              <span className="block text-[0.82rem] font-bold text-ink">{child.label}</span>
+                              <span className="block text-[0.82rem] font-bold text-ink group-hover:text-brand-700 transition-colors">{child.label}</span>
                               <span className="mt-0.5 block text-xs leading-snug text-ink-soft">{child.desc}</span>
                             </span>
                           </Link>

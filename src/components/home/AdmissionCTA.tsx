@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Phone, ArrowRight, CheckCircle } from "lucide-react";
 import { siteConfig } from "@/config/site";
+import { Reveal, StaggerContainer, StaggerItem } from "@/components/shared/Reveal";
 
 const steps = [
   {
@@ -27,9 +28,9 @@ const steps = [
 
 export function AdmissionCTA() {
   return (
-    <section className="bg-white py-16 sm:py-20 border-b border-line">
+    <section className="bg-white py-16 sm:py-20 border-b border-line overflow-hidden">
       <div className="shell">
-        <div className="overflow-hidden rounded-2xl bg-brand-900 p-8 sm:p-12 lg:p-14 text-white">
+        <Reveal delay={0.1} y={15} className="overflow-hidden rounded-2xl bg-brand-900 p-8 sm:p-12 lg:p-14 text-white">
           <div className="max-w-3xl">
             <p className="text-xs font-bold uppercase tracking-wider text-sun-300">
               New Academic Session Admissions
@@ -48,10 +49,10 @@ export function AdmissionCTA() {
             <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
               <Link
                 href="/admissions"
-                className="btn btn-sun !px-6 !py-3.5 !text-xs sm:!text-sm !font-bold text-center"
+                className="btn btn-sun group !px-6 !py-3.5 !text-xs sm:!text-sm !font-bold text-center"
               >
                 Apply for Admission
-                <ArrowRight className="size-4 ml-1.5" aria-hidden="true" />
+                <ArrowRight className="size-4 ml-1.5 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
               </Link>
               <a
                 href={`tel:${siteConfig.phone}`}
@@ -67,31 +68,30 @@ export function AdmissionCTA() {
             </p>
           </div>
 
-          {/* 4 Steps Roadmap */}
+          {/* 4 Steps Roadmap with Staggered Entrance */}
           <div className="mt-12 border-t border-white/15 pt-8">
             <p className="text-xs font-bold uppercase tracking-wider text-sun-300">
               Step-by-Step Admission Process
             </p>
-            <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <StaggerContainer className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.07}>
               {steps.map((st) => (
-                <div
-                  key={st.num}
-                  className="rounded-lg border border-white/15 bg-white/5 p-4"
-                >
-                  <span className="font-serif text-xl font-bold text-sun-300">
-                    {st.num}
-                  </span>
-                  <h3 className="mt-1.5 font-serif text-sm font-bold text-white">
-                    {st.title}
-                  </h3>
-                  <p className="mt-1 text-xs leading-relaxed text-white/75">
-                    {st.desc}
-                  </p>
-                </div>
+                <StaggerItem key={st.num}>
+                  <div className="rounded-lg border border-white/15 bg-white/5 p-4 transition-colors hover:border-white/25 hover:bg-white/10">
+                    <span className="font-serif text-xl font-bold text-sun-300">
+                      {st.num}
+                    </span>
+                    <h3 className="mt-1.5 font-serif text-sm font-bold text-white">
+                      {st.title}
+                    </h3>
+                    <p className="mt-1 text-xs leading-relaxed text-white/75">
+                      {st.desc}
+                    </p>
+                  </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

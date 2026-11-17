@@ -3,6 +3,8 @@ import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/config/site";
 import { schoolStructuredData } from "@/lib/seo";
+import { ScrollProgress } from "@/components/shared/ScrollProgress";
+import { BackToTop } from "@/components/shared/BackToTop";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -73,7 +75,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-cream text-ink font-sans antialiased">
+        <ScrollProgress />
         {children}
+        <BackToTop />
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, BookOpen, GraduationCap, Laptop, Check } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Reveal, StaggerContainer, StaggerItem } from "@/components/shared/Reveal";
 
 const academicLevels = [
   {
@@ -53,7 +54,7 @@ const plusTwoStreams = [
 
 export function AcademicPrograms() {
   return (
-    <section className="bg-white py-16 sm:py-20 lg:py-24 border-b border-line">
+    <section className="bg-white py-16 sm:py-20 lg:py-24 border-b border-line overflow-hidden">
       <div className="shell">
         <SectionHeading
           badge="Curriculum & Pathways"
@@ -62,59 +63,58 @@ export function AcademicPrograms() {
           action={
             <Link
               href="/academics"
-              className="btn btn-outline !text-xs sm:!text-sm"
+              className="btn btn-outline group !text-xs sm:!text-sm"
             >
               View Full Academic Details
-              <ArrowRight className="size-4" aria-hidden="true" />
+              <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           }
         />
 
-        {/* 4 Core Schooling Levels */}
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* 4 Core Schooling Levels with Cascading Reveal */}
+        <StaggerContainer className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" staggerDelay={0.07}>
           {academicLevels.map((lvl) => (
-            <div
-              key={lvl.level}
-              className="flex flex-col justify-between rounded-xl border border-line bg-slate-bg p-6 transition-colors hover:border-brand-700 hover:bg-white"
-            >
-              <div>
-                <span className="inline-block rounded bg-brand-50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-brand-700">
-                  {lvl.tag}
-                </span>
+            <StaggerItem key={lvl.level}>
+              <div className="card-interactive flex h-full flex-col justify-between rounded-xl border border-line bg-slate-bg p-6 hover:border-brand-700 hover:bg-white">
+                <div>
+                  <span className="inline-block rounded bg-brand-50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-brand-700">
+                    {lvl.tag}
+                  </span>
 
-                <h3 className="mt-3 font-serif text-lg font-bold text-ink">
-                  {lvl.level}
-                </h3>
-                <p className="text-xs font-semibold text-sun-500 uppercase tracking-wide mt-0.5">
-                  {lvl.grades}
-                </p>
+                  <h3 className="mt-3 font-serif text-lg font-bold text-ink">
+                    {lvl.level}
+                  </h3>
+                  <p className="text-xs font-semibold text-sun-500 uppercase tracking-wide mt-0.5">
+                    {lvl.grades}
+                  </p>
 
-                <p className="mt-3 text-xs leading-relaxed text-slate-600">
-                  {lvl.desc}
-                </p>
+                  <p className="mt-3 text-xs leading-relaxed text-slate-600">
+                    {lvl.desc}
+                  </p>
 
-                <ul className="mt-4 space-y-1.5 border-t border-line/80 pt-3 text-[11px] text-slate-600">
-                  {lvl.features.map((feat) => (
-                    <li key={feat} className="flex items-center gap-2">
-                      <Check className="size-3 text-brand-600 shrink-0" aria-hidden="true" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="mt-4 space-y-1.5 border-t border-line/80 pt-3 text-[11px] text-slate-600">
+                    {lvl.features.map((feat) => (
+                      <li key={feat} className="flex items-center gap-2">
+                        <Check className="size-3 text-brand-600 shrink-0" aria-hidden="true" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <Link
+                  href="/academics"
+                  className="mt-6 inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:underline"
+                >
+                  Learn more about {lvl.level} →
+                </Link>
               </div>
-
-              <Link
-                href="/academics"
-                className="mt-6 inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:underline"
-              >
-                Learn more about {lvl.level} →
-              </Link>
-            </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
 
         {/* Higher Secondary (+2) Featured Block */}
-        <div className="mt-10 overflow-hidden rounded-xl border border-brand-800 bg-brand-900 p-7 text-white sm:p-10">
+        <Reveal delay={0.2} y={20} className="mt-10 overflow-hidden rounded-xl border border-brand-800 bg-brand-900 p-7 text-white sm:p-10">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <span className="text-xs font-bold uppercase tracking-wider text-sun-300">
@@ -141,7 +141,7 @@ export function AcademicPrograms() {
             {plusTwoStreams.map((stream) => (
               <div
                 key={stream.name}
-                className="rounded-lg border border-white/10 bg-white/5 p-5"
+                className="rounded-lg border border-white/10 bg-white/5 p-5 transition-colors hover:border-white/20 hover:bg-white/10"
               >
                 <div className="flex items-center justify-between">
                   <h4 className="font-serif text-lg font-bold text-sun-300">
@@ -159,7 +159,7 @@ export function AcademicPrograms() {
               </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

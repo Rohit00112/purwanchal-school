@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, Laptop, Trophy, Users, CheckCircle } from "lucide-react";
 import { images } from "@/config/images";
 import { siteConfig } from "@/config/site";
+import { Reveal, StaggerContainer, StaggerItem } from "@/components/shared/Reveal";
 
 const pillars = [
   {
@@ -29,20 +30,20 @@ const pillars = [
 
 export function SchoolIntro() {
   return (
-    <section className="bg-slate-bg py-16 sm:py-20 lg:py-24 border-b border-line">
+    <section className="bg-slate-bg py-16 sm:py-20 lg:py-24 border-b border-line overflow-hidden">
       <div className="shell">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
           
           {/* Left: Authentic Classroom Image with Clean Frame */}
-          <div className="lg:col-span-5">
-            <div className="overflow-hidden rounded-xl border border-line bg-white shadow-sm">
+          <Reveal className="lg:col-span-5" delay={0.1} y={15}>
+            <div className="group overflow-hidden rounded-xl border border-line bg-white shadow-sm transition-shadow duration-300 hover:shadow-md">
               <div className="relative aspect-[4/3.8] w-full overflow-hidden bg-slate-100">
                 <Image
                   src={images.heroClassroom}
                   alt="Classroom learning environment at Purwanchal Secondary Boarding School"
                   fill
                   sizes="(max-width: 1024px) 100vw, 42vw"
-                  className="object-cover object-center"
+                  className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                 />
               </div>
               <div className="border-t border-line bg-white p-4">
@@ -54,10 +55,10 @@ export function SchoolIntro() {
                 </p>
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Right: Narrative & Four Pillars */}
-          <div className="lg:col-span-7">
+          <Reveal className="lg:col-span-7" delay={0.2} y={15}>
             <p className="text-xs font-bold uppercase tracking-wider text-brand-700">
               Institutional Profile
             </p>
@@ -78,14 +79,14 @@ export function SchoolIntro() {
               hands-on science and computer laboratory work, and supportive student mentorship.
             </p>
 
-            {/* Four Pillars */}
-            <div className="mt-7 grid gap-4 sm:grid-cols-2">
+            {/* Four Pillars with Staggered Entrance */}
+            <StaggerContainer className="mt-7 grid gap-4 sm:grid-cols-2" staggerDelay={0.08}>
               {pillars.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div
+                  <StaggerItem
                     key={item.title}
-                    className="rounded-lg border border-line bg-white p-4 transition-colors hover:border-brand-300"
+                    className="card-interactive rounded-lg border border-line bg-white p-4 hover:border-brand-300"
                   >
                     <div className="flex items-center gap-2.5">
                       <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-brand-50 text-brand-700">
@@ -98,18 +99,18 @@ export function SchoolIntro() {
                     <p className="mt-2 text-xs leading-relaxed text-slate-600">
                       {item.description}
                     </p>
-                  </div>
+                  </StaggerItem>
                 );
               })}
-            </div>
+            </StaggerContainer>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Link
                 href="/about"
-                className="btn btn-primary !px-5 !py-3 !text-xs sm:!text-sm !font-bold"
+                className="btn btn-primary group !px-5 !py-3 !text-xs sm:!text-sm !font-bold"
               >
                 Learn More About Our School
-                <ArrowRight className="size-4" aria-hidden="true" />
+                <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
               </Link>
               <Link
                 href="/contact"
@@ -118,7 +119,7 @@ export function SchoolIntro() {
                 Schedule a Campus Visit
               </Link>
             </div>
-          </div>
+          </Reveal>
 
         </div>
       </div>
