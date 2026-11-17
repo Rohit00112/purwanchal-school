@@ -400,12 +400,14 @@ export function EventsClient({ initialEvents }: { initialEvents: EventItem[] }) 
                   onChange={setFormStartDate}
                   label="Event Start Date (BS & AD)"
                   required
+                  align="left"
                 />
 
                 <DualDatePicker
                   value={formEndDate}
                   onChange={setFormEndDate}
                   label="Event End Date (BS & AD - Optional)"
+                  align="right"
                 />
               </div>
 

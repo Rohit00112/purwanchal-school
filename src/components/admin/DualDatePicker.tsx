@@ -26,6 +26,7 @@ interface DualDatePickerProps {
   onChange: (adDate: string, bsDate?: string) => void;
   label?: string;
   required?: boolean;
+  align?: "left" | "right";
   className?: string;
 }
 
@@ -34,6 +35,7 @@ export function DualDatePicker({
   onChange,
   label = "Select Date (BS & AD)",
   required = false,
+  align = "left",
   className,
 }: DualDatePickerProps) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -237,15 +239,20 @@ export function DualDatePicker({
 
       {/* Popover Calendar Dropdown */}
       {isOpen && (
-        <div className="absolute left-0 z-50 mt-1 w-full sm:w-[360px] rounded-2xl border border-line bg-white p-4 shadow-xl">
+        <div
+          className={cn(
+            "absolute z-[70] mt-1.5 w-[320px] max-w-[calc(100vw-36px)] rounded-2xl border border-line bg-white p-3.5 shadow-2xl transition-all",
+            align === "right" ? "right-0" : "left-0"
+          )}
+        >
           {/* Header Controls: Tab Switcher & Today button */}
-          <div className="flex items-center justify-between border-b border-line pb-3 mb-3">
-            <div className="inline-flex rounded-lg bg-slate-100 p-0.5">
+          <div className="flex items-center justify-between border-b border-line pb-2.5 mb-2.5 gap-2">
+            <div className="inline-flex rounded-lg bg-slate-100 p-0.5 shrink-0">
               <button
                 type="button"
                 onClick={() => setActiveTab("BS")}
                 className={cn(
-                  "rounded-md px-3 py-1 text-xs font-bold transition-all",
+                  "rounded-md px-2.5 py-1 text-xs font-bold transition-all",
                   activeTab === "BS"
                     ? "bg-brand-900 text-white shadow-xs"
                     : "text-slate-600 hover:text-ink"
@@ -257,7 +264,7 @@ export function DualDatePicker({
                 type="button"
                 onClick={() => setActiveTab("AD")}
                 className={cn(
-                  "rounded-md px-3 py-1 text-xs font-bold transition-all",
+                  "rounded-md px-2.5 py-1 text-xs font-bold transition-all",
                   activeTab === "AD"
                     ? "bg-brand-900 text-white shadow-xs"
                     : "text-slate-600 hover:text-ink"
@@ -270,7 +277,7 @@ export function DualDatePicker({
             <button
               type="button"
               onClick={handleSetToday}
-              className="text-[11px] font-bold text-brand-700 hover:underline"
+              className="text-[11px] font-bold text-brand-700 hover:underline shrink-0 whitespace-nowrap px-1"
             >
               आज / Today
             </button>
@@ -278,23 +285,23 @@ export function DualDatePicker({
 
           {/* BS Calendar Body */}
           {activeTab === "BS" ? (
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {/* Year & Month Selection Controls */}
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center justify-between gap-1">
                 <button
                   type="button"
                   onClick={prevBsMonth}
-                  className="rounded p-1 text-slate-500 hover:bg-slate-100"
+                  className="rounded p-1 text-slate-500 hover:bg-slate-100 shrink-0"
                   title="Previous Nepali Month"
                 >
                   <ChevronLeft className="size-4" />
                 </button>
 
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 min-w-0">
                   <select
                     value={bsMonth}
                     onChange={(e) => setBsMonth(parseInt(e.target.value, 10))}
-                    className="rounded border border-line bg-white px-2 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700"
+                    className="rounded border border-line bg-white px-2 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700 max-w-[130px] truncate"
                   >
                     {NEPALI_MONTHS.map((m) => (
                       <option key={m.index} value={m.index}>
@@ -306,7 +313,7 @@ export function DualDatePicker({
                   <select
                     value={bsYear}
                     onChange={(e) => setBsYear(parseInt(e.target.value, 10))}
-                    className="rounded border border-line bg-white px-2 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700"
+                    className="rounded border border-line bg-white px-1.5 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700 shrink-0"
                   >
                     {bsYearOptions.map((yr) => (
                       <option key={yr} value={yr}>
@@ -319,7 +326,7 @@ export function DualDatePicker({
                 <button
                   type="button"
                   onClick={nextBsMonth}
-                  className="rounded p-1 text-slate-500 hover:bg-slate-100"
+                  className="rounded p-1 text-slate-500 hover:bg-slate-100 shrink-0"
                   title="Next Nepali Month"
                 >
                   <ChevronRight className="size-4" />
@@ -327,11 +334,11 @@ export function DualDatePicker({
               </div>
 
               {/* Day of Week Headers */}
-              <div className="grid grid-cols-7 text-center text-[10px] font-bold text-slate-500 border-b border-line pb-1.5">
+              <div className="grid grid-cols-7 text-center text-[10px] font-bold text-slate-500 border-b border-line pb-1">
                 {NEPALI_DAYS.map((d, idx) => (
                   <div key={d.short} className={idx === 6 ? "text-red-600" : ""}>
                     <span>{d.nepali}</span>
-                    <span className="block text-[9px] text-slate-400 font-normal">{d.short}</span>
+                    <span className="block text-[8px] text-slate-400 font-normal">{d.short}</span>
                   </div>
                 ))}
               </div>
@@ -340,7 +347,7 @@ export function DualDatePicker({
               <div className="grid grid-cols-7 gap-1 text-center text-xs">
                 {/* Empty cells for leading days */}
                 {Array.from({ length: firstWeekdayBs }).map((_, i) => (
-                  <div key={`empty-bs-${i}`} className="p-1" />
+                  <div key={`empty-bs-${i}`} className="h-8" />
                 ))}
 
                 {/* Real Days of BS Month */}
@@ -358,7 +365,7 @@ export function DualDatePicker({
                       type="button"
                       onClick={() => handleSelectBsDay(dayNum)}
                       className={cn(
-                        "flex flex-col items-center justify-center rounded-lg p-1 transition-all h-9",
+                        "flex flex-col items-center justify-center rounded-lg p-0.5 transition-all h-8",
                         isSelected
                           ? "bg-brand-700 text-white font-bold shadow-xs scale-105"
                           : isSaturday
@@ -366,8 +373,8 @@ export function DualDatePicker({
                           : "text-slate-800 hover:bg-slate-100"
                       )}
                     >
-                      <span className="text-xs font-bold">{toNepaliNumerals(dayNum)}</span>
-                      <span className={cn("text-[9px]", isSelected ? "text-white/80" : "text-slate-400")}>
+                      <span className="text-[11px] font-bold leading-none">{toNepaliNumerals(dayNum)}</span>
+                      <span className={cn("text-[8px] leading-none mt-0.5", isSelected ? "text-white/80" : "text-slate-400")}>
                         {dayNum}
                       </span>
                     </button>
@@ -377,23 +384,23 @@ export function DualDatePicker({
             </div>
           ) : (
             /* AD Calendar Body */
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {/* Year & Month Selection Controls */}
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center justify-between gap-1">
                 <button
                   type="button"
                   onClick={prevAdMonth}
-                  className="rounded p-1 text-slate-500 hover:bg-slate-100"
+                  className="rounded p-1 text-slate-500 hover:bg-slate-100 shrink-0"
                   title="Previous AD Month"
                 >
                   <ChevronLeft className="size-4" />
                 </button>
 
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-1.5 min-w-0">
                   <select
                     value={adMonth}
                     onChange={(e) => setAdMonth(parseInt(e.target.value, 10))}
-                    className="rounded border border-line bg-white px-2 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700"
+                    className="rounded border border-line bg-white px-2 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700 max-w-[130px] truncate"
                   >
                     {[
                       "January", "February", "March", "April", "May", "June",
@@ -406,7 +413,7 @@ export function DualDatePicker({
                   <select
                     value={adYear}
                     onChange={(e) => setAdYear(parseInt(e.target.value, 10))}
-                    className="rounded border border-line bg-white px-2 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700"
+                    className="rounded border border-line bg-white px-1.5 py-1 text-xs font-bold text-ink focus:ring-1 focus:ring-brand-700 shrink-0"
                   >
                     {adYearOptions.map((yr) => (
                       <option key={yr} value={yr}>{yr}</option>
@@ -417,7 +424,7 @@ export function DualDatePicker({
                 <button
                   type="button"
                   onClick={nextAdMonth}
-                  className="rounded p-1 text-slate-500 hover:bg-slate-100"
+                  className="rounded p-1 text-slate-500 hover:bg-slate-100 shrink-0"
                   title="Next AD Month"
                 >
                   <ChevronRight className="size-4" />
@@ -425,7 +432,7 @@ export function DualDatePicker({
               </div>
 
               {/* Day of Week Headers */}
-              <div className="grid grid-cols-7 text-center text-[10px] font-bold text-slate-500 border-b border-line pb-1.5">
+              <div className="grid grid-cols-7 text-center text-[10px] font-bold text-slate-500 border-b border-line pb-1">
                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d, idx) => (
                   <div key={d} className={idx === 6 ? "text-red-600" : ""}>
                     <span>{d}</span>
@@ -436,7 +443,7 @@ export function DualDatePicker({
               {/* AD Day Grid */}
               <div className="grid grid-cols-7 gap-1 text-center text-xs">
                 {Array.from({ length: firstWeekdayAd }).map((_, i) => (
-                  <div key={`empty-ad-${i}`} className="p-1" />
+                  <div key={`empty-ad-${i}`} className="h-8" />
                 ))}
 
                 {Array.from({ length: daysInCurrentAdMonth }, (_, i) => i + 1).map((dayNum) => {
@@ -453,7 +460,7 @@ export function DualDatePicker({
                       type="button"
                       onClick={() => handleSelectAdDay(dayNum)}
                       className={cn(
-                        "flex items-center justify-center rounded-lg p-1 transition-all h-8 text-xs font-semibold",
+                        "flex items-center justify-center rounded-lg p-0.5 transition-all h-8 text-xs font-semibold",
                         isSelected
                           ? "bg-brand-700 text-white font-bold shadow-xs scale-105"
                           : isSaturday
@@ -470,13 +477,15 @@ export function DualDatePicker({
           )}
 
           {/* Footer Conversion Helper Badge */}
-          <div className="mt-4 pt-3 border-t border-line flex items-center justify-between text-[11px] text-slate-500">
-            <span className="font-semibold text-brand-700">
-              BS: {currentBsInfo.formattedNepali}
-            </span>
-            <span className="font-mono text-slate-600">
-              AD: {value || "N/A"}
-            </span>
+          <div className="mt-3 pt-2.5 border-t border-line flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-[11px] text-slate-500">
+            <div className="flex items-center gap-1 min-w-0">
+              <span className="text-slate-400 font-medium shrink-0">BS:</span>
+              <span className="font-semibold text-brand-700 truncate">{currentBsInfo.formattedNepali}</span>
+            </div>
+            <div className="flex items-center gap-1 font-mono text-[10px] text-slate-600 shrink-0">
+              <span className="text-slate-400 font-sans">AD:</span>
+              <span>{value || "N/A"}</span>
+            </div>
           </div>
         </div>
       )}
