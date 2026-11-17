@@ -1,0 +1,491 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── Authentication & Users ──────────────────────────────────────────────────
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  EDITOR
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  passwordHash  String
+  role          UserRole  @default(EDITOR)
+  image         String?
+  isActive      Boolean   @default(true)
+  lastLoginAt   DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  auditLogs     AuditLog[]
+  newsArticles  NewsArticle[]
+  events        Event[]
+
+  @@index([email])
+  @@index([role])
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String
+  action      String
+  entity      String
+  entityId    String?
+  details     String?
+  ipAddress   String?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([entity, entityId])
+  @@index([createdAt])
+}
+
+// ─── School Profile ──────────────────────────────────────────────────────────
+
+model SchoolProfile {
+  id                String   @id @default(cuid())
+  name              String   @default("Purwanchal Secondary Boarding School")
+  nameNepali        String?
+  tagline           String?
+  description       String?
+  address           String   @default("Itahari-20, Tarahara, Sunsari, Koshi Province, Nepal")
+  phone             String   @default("+977-25-475403")
+  email             String?
+  website           String?
+  facebookUrl       String?
+  logoUrl           String?
+  faviconUrl        String?
+  establishedYear   Int?     @default(1994)
+  latitude          Float?
+  longitude         Float?
+  officeHoursStart  String?
+  officeHoursEnd    String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model SchoolHistory {
+  id          String   @id @default(cuid())
+  title       String
+  content     String
+  year        Int?
+  imageUrl    String?
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
+model Vision {
+  id          String   @id @default(cuid())
+  title       String   @default("Our Vision")
+  content     String
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Mission {
+  id          String   @id @default(cuid())
+  title       String   @default("Our Mission")
+  content     String
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Leadership & Staff ──────────────────────────────────────────────────────
+
+enum StaffRole {
+  PRINCIPAL
+  VICE_PRINCIPAL
+  MANAGEMENT
+  TEACHER
+  ADMIN_STAFF
+  SUPPORT_STAFF
+}
+
+model StaffMember {
+  id            String    @id @default(cuid())
+  name          String
+  role          StaffRole
+  designation   String?
+  department    String?
+  qualification String?
+  bio           String?
+  imageUrl      String?
+  email         String?
+  phone         String?
+  joinedYear    Int?
+  sortOrder     Int       @default(0)
+  isPublished   Boolean   @default(false)
+  isFeatured    Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([role])
+  @@index([sortOrder])
+  @@index([isPublished])
+}
+
+model PrincipalMessage {
+  id          String   @id @default(cuid())
+  title       String   @default("Message from the Principal")
+  content     String
+  imageUrl    String?
+  name        String?
+  designation String?
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ─── Academics ───────────────────────────────────────────────────────────────
+
+enum ProgramLevel {
+  ECD
+  PRIMARY
+  LOWER_SECONDARY
+  SECONDARY
+  PLUS_TWO
+}
+
+model AcademicProgram {
+  id            String       @id @default(cuid())
+  title         String
+  slug          String       @unique
+  level         ProgramLevel
+  stream        String?
+  description   String?
+  objectives    String?
+  curriculum    String?
+  activities    String?
+  imageUrl      String?
+  iconName      String?
+  sortOrder     Int          @default(0)
+  isPublished   Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  @@index([level])
+  @@index([slug])
+  @@index([sortOrder])
+}
+
+model AcademicCalendar {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime?
+  year        Int
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([year])
+}
+
+// ─── Facilities ──────────────────────────────────────────────────────────────
+
+model Facility {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String?
+  features    String?
+  imageUrl    String?
+  iconName    String?
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  images      FacilityImage[]
+
+  @@index([slug])
+  @@index([sortOrder])
+}
+
+model FacilityImage {
+  id         String   @id @default(cuid())
+  facilityId String
+  imageUrl   String
+  caption    String?
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+
+  facility   Facility @relation(fields: [facilityId], references: [id], onDelete: Cascade)
+
+  @@index([facilityId])
+}
+
+// ─── Admissions ──────────────────────────────────────────────────────────────
+
+enum InquiryStatus {
+  NEW
+  REVIEWED
+  CONTACTED
+  ENROLLED
+  ARCHIVED
+}
+
+model AdmissionInquiry {
+  id              String        @id @default(cuid())
+  parentName      String
+  studentName     String
+  contactNumber   String
+  email           String?
+  currentSchool   String?
+  applyingGrade   String
+  academicYear    String?
+  message         String?
+  status          InquiryStatus @default(NEW)
+  adminNotes      String?
+  submittedAt     DateTime      @default(now())
+  reviewedAt      DateTime?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([status])
+  @@index([submittedAt])
+  @@index([applyingGrade])
+}
+
+model AdmissionInfo {
+  id                  String   @id @default(cuid())
+  introduction        String?
+  eligibility         String?
+  procedure           String?
+  requiredDocuments   String?
+  importantDates      String?
+  scholarshipInfo     String?
+  faq                 String?
+  isPublished         Boolean  @default(false)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
+
+// ─── News & Events ───────────────────────────────────────────────────────────
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model NewsCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  articles  NewsArticle[]
+
+  @@index([slug])
+}
+
+model NewsArticle {
+  id          String            @id @default(cuid())
+  title       String
+  slug        String            @unique
+  excerpt     String?
+  content     String
+  imageUrl    String?
+  categoryId  String?
+  authorId    String?
+  status      PublicationStatus @default(DRAFT)
+  isFeatured  Boolean           @default(false)
+  publishedAt DateTime?
+  metaTitle   String?
+  metaDesc    String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  category    NewsCategory?     @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  author      User?             @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([slug])
+  @@index([status])
+  @@index([categoryId])
+  @@index([publishedAt])
+  @@index([isFeatured])
+}
+
+model Event {
+  id          String            @id @default(cuid())
+  title       String
+  slug        String            @unique
+  description String?
+  content     String?
+  imageUrl    String?
+  location    String?
+  startDate   DateTime
+  endDate     DateTime?
+  authorId    String?
+  status      PublicationStatus @default(DRAFT)
+  isFeatured  Boolean           @default(false)
+  metaTitle   String?
+  metaDesc    String?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  author      User?             @relation(fields: [authorId], references: [id], onDelete: SetNull)
+
+  @@index([slug])
+  @@index([status])
+  @@index([startDate])
+  @@index([isFeatured])
+}
+
+// ─── Gallery ─────────────────────────────────────────────────────────────────
+
+model GalleryCategory {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  media     GalleryMedia[]
+
+  @@index([slug])
+}
+
+model GalleryMedia {
+  id          String   @id @default(cuid())
+  title       String?
+  description String?
+  imageUrl    String
+  thumbnailUrl String?
+  categoryId  String?
+  mediaType   String   @default("image")
+  videoUrl    String?
+  width       Int?
+  height      Int?
+  sortOrder   Int      @default(0)
+  isPublished Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  category    GalleryCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([categoryId])
+  @@index([isPublished])
+  @@index([isFeatured])
+  @@index([sortOrder])
+}
+
+// ─── Contact ─────────────────────────────────────────────────────────────────
+
+enum MessageStatus {
+  UNREAD
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+model ContactMessage {
+  id        String        @id @default(cuid())
+  fullName  String
+  email     String
+  phone     String?
+  subject   String
+  message   String
+  status    MessageStatus @default(UNREAD)
+  adminNote String?
+  repliedAt DateTime?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ─── Testimonials ────────────────────────────────────────────────────────────
+
+model Testimonial {
+  id          String   @id @default(cuid())
+  name        String
+  role        String?
+  content     String
+  imageUrl    String?
+  isPublished Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished])
+  @@index([sortOrder])
+}
+
+// ─── Announcements ───────────────────────────────────────────────────────────
+
+model Announcement {
+  id          String            @id @default(cuid())
+  title       String
+  content     String?
+  type        String            @default("general")
+  priority    Int               @default(0)
+  status      PublicationStatus @default(DRAFT)
+  startsAt    DateTime?
+  expiresAt   DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  @@index([status])
+  @@index([priority])
+  @@index([expiresAt])
+}
+
+// ─── Website Settings ────────────────────────────────────────────────────────
+
+model WebsiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  type      String   @default("text")
+  group     String   @default("general")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+  @@index([group])
+}
+
+// ─── Achievements ────────────────────────────────────────────────────────────
+
+model Achievement {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  category    String?
+  year        Int?
+  imageUrl    String?
+  isPublished Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([isPublished])
+  @@index([sortOrder])
+}
