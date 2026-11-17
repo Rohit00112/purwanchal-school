@@ -17,10 +17,10 @@ const quickLinks = [
 ];
 
 const levels = [
-  { label: "Pre-primary (Nursery–UKG)", href: "/academics#ecd" },
-  { label: "Primary (Grades 1–5)", href: "/academics#primary" },
-  { label: "Lower secondary (6–8)", href: "/academics#lower-secondary" },
-  { label: "Secondary / SEE (9–10)", href: "/academics#secondary" },
+  { label: "Pre-primary (Nursery to UKG)", href: "/academics#ecd" },
+  { label: "Primary (Grades 1 to 5)", href: "/academics#primary" },
+  { label: "Lower secondary (Grades 6 to 8)", href: "/academics#lower-secondary" },
+  { label: "Secondary / SEE (Grades 9 to 10)", href: "/academics#secondary" },
   { label: "Higher secondary (+2)", href: "/academics#plus-two" },
 ];
 
@@ -153,7 +153,7 @@ export function Footer() {
               <span>
                 {siteConfig.officeHours.days}
                 <br />
-                {siteConfig.officeHours.start} – {siteConfig.officeHours.end}
+                {siteConfig.officeHours.start} to {siteConfig.officeHours.end}
               </span>
             </li>
           </ul>

@@ -134,7 +134,7 @@ export function Header() {
             </a>
             <span className="inline-flex min-h-11 items-center gap-1.5">
               <Clock aria-hidden="true" className="size-3.5 text-sun-300" />
-              {siteConfig.officeHours.days}, {siteConfig.officeHours.start}–{siteConfig.officeHours.end}
+              {siteConfig.officeHours.days}, {siteConfig.officeHours.start} to {siteConfig.officeHours.end}
             </span>
           </div>
           <div className="flex items-center gap-5">

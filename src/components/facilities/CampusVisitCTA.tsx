@@ -23,7 +23,7 @@ export function CampusVisitCTA() {
               {[
                 { icon: MapPin, label: "Find us", value: "Itahari-20, Tarahara, Sunsari" },
                 { icon: Phone, label: "Call ahead", value: siteConfig.phone },
-                { icon: Clock, label: "Office hours", value: `${siteConfig.officeHours.start} – ${siteConfig.officeHours.end}` },
+                { icon: Clock, label: "Office hours", value: `${siteConfig.officeHours.start} to ${siteConfig.officeHours.end}` },
               ].map(({ icon: Icon, label, value }) => (
                 <div key={label} className="rounded-lg border border-white/20 p-5">
                   <Icon className="size-5 text-sun-300" aria-hidden="true" />

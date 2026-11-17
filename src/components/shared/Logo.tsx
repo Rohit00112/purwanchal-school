@@ -3,65 +3,80 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 interface LogoProps {
-  showText?: boolean;
-  light?: boolean;
   className?: string;
-  href?: string | null;
+  variant?: "light" | "dark";
+  light?: boolean;
+  size?: "sm" | "md" | "lg";
+  showText?: boolean;
 }
 
-/** The school's uploaded crest from /public/logo/logo.png. */
-export function LogoMark({ className, alt = "" }: { className?: string; alt?: string }) {
+export function Logo({
+  className,
+  variant,
+  light = false,
+  size = "md",
+  showText = true,
+}: LogoProps) {
+  const resolvedVariant = variant || (light ? "light" : "dark");
+  const sizeMap = {
+    sm: { img: 36, text: "text-sm", sub: "text-[10px]" },
+    md: { img: 46, text: "text-base sm:text-lg", sub: "text-[11px]" },
+    lg: { img: 60, text: "text-xl sm:text-2xl", sub: "text-xs" },
+  };
+
+  const currentSize = sizeMap[size];
+
   return (
-    <span
-      className={cn(
-        "relative inline-flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white p-1 ring-1 ring-line-strong",
-        className
-      )}
-    >
-      <Image
-        src="/logo/logo.png"
-        alt={alt}
-        width={48}
-        height={48}
-        sizes="48px"
-        className="size-full object-contain"
-      />
-    </span>
-  );
-}
+    <Link href="/" className={cn("inline-flex items-center gap-3 group min-h-[44px]", className)}>
+      <div
+        className={cn(
+          "relative shrink-0 rounded-full bg-white p-1 shadow-xs border transition-transform duration-200 group-hover:scale-105",
+          resolvedVariant === "light"
+            ? "border-white/30"
+            : "border-slate-200"
+        )}
+        style={{ width: currentSize.img + 8, height: currentSize.img + 8 }}
+      >
+        <Image
+          src="/logo/logo-web.png"
+          alt="Purwanchal Secondary Boarding School Emblem"
+          width={currentSize.img}
+          height={currentSize.img}
+          className="w-full h-full object-contain"
+          priority
+        />
+      </div>
 
-export function Logo({ showText = true, light = false, className, href = "/" }: LogoProps) {
-  const content = (
-    <span className="flex items-center gap-3">
-      <LogoMark alt={showText ? "" : "Purwanchal Secondary Boarding School"} />
       {showText && (
-        <span className="flex flex-col leading-none">
+        <div className="flex flex-col">
           <span
             className={cn(
-              "text-[0.95rem] font-extrabold tracking-tight sm:text-base",
-              light ? "text-white" : "text-brand-950"
+              "font-serif font-bold tracking-tight leading-none",
+              currentSize.text,
+              resolvedVariant === "light" ? "text-white" : "text-[#16194F]"
             )}
           >
-            Purwanchal
+            PURWANCHAL
           </span>
           <span
             className={cn(
-              "mt-1 text-[0.58rem] font-bold uppercase tracking-[0.19em]",
-              light ? "text-sun-300" : "text-brand-600"
+              "font-sans font-semibold tracking-wider uppercase mt-1 leading-tight",
+              currentSize.sub,
+              resolvedVariant === "light" ? "text-[#DFB251]" : "text-[#2E3191]"
             )}
           >
             Secondary Boarding School
           </span>
-        </span>
+          <span
+            className={cn(
+              "text-[10px] tracking-wide mt-0.5",
+              resolvedVariant === "light" ? "text-slate-300" : "text-slate-500"
+            )}
+          >
+            Estd. 1994 AD · Tarahara, Sunsari
+          </span>
+        </div>
       )}
-    </span>
-  );
-
-  if (href === null) return <span className={className}>{content}</span>;
-
-  return (
-    <Link href={href} className={cn("inline-flex min-h-11 items-center", className)} aria-label="Purwanchal Secondary Boarding School, home">
-      {content}
     </Link>
   );
 }

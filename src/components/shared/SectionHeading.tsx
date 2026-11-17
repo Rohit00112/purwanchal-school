@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Reveal } from "./Reveal";
 
 interface SectionHeadingProps {
-  /** @deprecated R-09: headings no longer carry a decorative eyebrow badge. */
+  badge?: ReactNode;
   eyebrow?: string;
   title: ReactNode;
   description?: string;
@@ -15,6 +15,7 @@ interface SectionHeadingProps {
 }
 
 export function SectionHeading({
+  badge,
   title,
   description,
   align = "left",
@@ -34,6 +35,20 @@ export function SectionHeading({
       )}
     >
       <Reveal className={cn("max-w-2xl", centered && "mx-auto")}>
+        {badge && (
+          <div className="mb-3">
+            <span
+              className={cn(
+                "inline-block rounded-md px-2.5 py-1 text-xs font-bold uppercase tracking-wider",
+                light
+                  ? "bg-white/10 text-sun-300 border border-white/20"
+                  : "bg-brand-50 text-brand-700 border border-brand-100"
+              )}
+            >
+              {badge}
+            </span>
+          </div>
+        )}
         <h2
           className={cn(
             "text-3xl font-extrabold leading-[1.12] sm:text-4xl lg:text-[2.5rem]",
@@ -45,7 +60,7 @@ export function SectionHeading({
         {description && (
           <p
             className={cn(
-              "mt-4 text-[0.95rem] leading-relaxed sm:text-base",
+              "mt-3 text-[0.95rem] leading-relaxed sm:text-base",
               light ? "text-white/80" : "text-ink-soft"
             )}
           >

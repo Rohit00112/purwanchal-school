@@ -1,61 +1,68 @@
 @import "tailwindcss";
 
-/* Design direction and dials are recorded in DESIGN.md.
-   Palette: forest green + one amber accent on warm paper. MOTION 1: hover/focus only. */
-
 @theme {
-  --color-brand-50: #eef9f4;
-  --color-brand-100: #d6f1e5;
-  --color-brand-200: #ade2cd;
-  --color-brand-300: #76c9ac;
-  --color-brand-400: #40aa8b;
-  --color-brand-500: #1f8b70;
-  --color-brand-600: #126e59;
-  --color-brand-700: #0f5748;
-  --color-brand-800: #0d453a;
-  --color-brand-900: #0a372f;
-  --color-brand-950: #062720;
+  /* Purwanchal Royal Blue (Dominant logo brand color #2E3191) */
+  --color-brand-50: #F0F2FD;
+  --color-brand-100: #E4E6FB;
+  --color-brand-200: #C3C6F5;
+  --color-brand-300: #989CE8;
+  --color-brand-400: #6E72D8;
+  --color-brand-500: #4E52C2;
+  --color-brand-600: #383CB8;
+  --color-brand-700: #2E3191;
+  --color-brand-800: #22257A;
+  --color-brand-900: #171A5A;
+  --color-brand-950: #0E1138;
 
-  --color-sun-50: #fff8e8;
-  --color-sun-100: #ffedc4;
-  --color-sun-200: #ffdb8a;
-  --color-sun-300: #ffc857;
-  --color-sun-400: #ffb233;
-  --color-sun-500: #f59418;
-  --color-sun-600: #d9740c;
+  /* Aliases for direct naming */
+  --color-primary: #2E3191;
+  --color-primary-dark: #1E216B;
+  --color-primary-deep: #0E1138;
+  --color-primary-light: #4447B3;
+  --color-primary-subtle: #F0F2FD;
 
-  --color-ink: #13221e;
-  --color-ink-soft: #53635d;
-  --color-ink-faint: #5b685f;
-  --color-cream: #fbfaf6;
-  --color-cream-deep: #f4f1e8;
-  --color-line: #e9e6dc;
-  --color-line-strong: #d5d0c2;
-  --color-white: #ffffff;
+  /* Purwanchal Regal Gold (Secondary crest color #C99726) */
+  --color-sun-50: #FEF9EE;
+  --color-sun-100: #FDEECB;
+  --color-sun-200: #FBDEA0;
+  --color-sun-300: #F3C867;
+  --color-sun-400: #C99726;
+  --color-sun-500: #B3831B;
+  --color-sun-600: #946A10;
 
-  --color-error: #b42318;
-  --color-error-soft: #fef3f2;
-  --color-error-border: #fecdca;
+  /* Aliases for direct gold naming */
+  --color-gold: #C99726;
+  --color-gold-hover: #B3831B;
+  --color-gold-light: #F3C867;
+  --color-gold-soft: #FEF9EE;
 
-  /* Legacy aliases retained for the pre-existing admin screens. */
-  --color-navy: #0a372f;
-  --color-navy-dark: #062720;
-  --color-navy-light: #0f5748;
-  --color-academic: #126e59;
-  --color-academic-light: #1f8b70;
-  --color-gold: #ffc857;
-  --color-gold-hover: #ffb233;
-  --color-gold-light: #ffdb8a;
-  --color-parchment: #fbfaf6;
-  --color-parchment-warm: #f4f1e8;
-  --color-ivory: #f4f1e8;
-  --color-charcoal: #13221e;
-  --color-charcoal-muted: #53635d;
-  --color-muted: #53635d;
-  --color-border-hairline: #e9e6dc;
-  --color-border-subtle: #e9e6dc;
-  --color-border-strong: #d5d0c2;
+  /* Clean white and slate surfaces (strictly NO greenish or muddy tint) */
+  --color-cream: #FFFFFF;
+  --color-cream-deep: #F8FAFC;
+  --color-slate-bg: #F8FAFC;
+  --color-slate-card: #FFFFFF;
+  --color-slate-subtle: #F1F5F9;
 
+  /* High-contrast typography ink */
+  --color-ink: #0F172A;
+  --color-ink-soft: #475569;
+  --color-ink-faint: #64748B;
+  --color-text-main: #0F172A;
+  --color-text-muted: #475569;
+  --color-text-light: #64748B;
+
+  /* Clean crisp borders */
+  --color-line: #E2E8F0;
+  --color-line-strong: #CBD5E1;
+  --color-border-subtle: #E2E8F0;
+  --color-border-strong: #CBD5E1;
+
+  /* Institutional feedback accents */
+  --color-error: #B91C1C;
+  --color-error-soft: #FEF2F2;
+  --color-error-border: #FECACA;
+
+  /* Typography */
   --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
@@ -63,36 +70,88 @@
   --font-editorial: var(--font-fraunces), Georgia, "Times New Roman", serif;
   --font-serif: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
-  --radius-card: 0.9rem;
-  --shadow-soft: 0 6px 18px -14px rgba(10, 55, 47, 0.3);
+  --radius-card: 0.75rem;
+  --shadow-soft: 0 4px 20px -6px rgba(46, 49, 145, 0.12);
+  --shadow-elevated: 0 12px 32px -8px rgba(46, 49, 145, 0.16);
 }
 
 :root {
-  --background: #fbfaf6;
-  --foreground: #13221e;
-}
-
-html {
-  scroll-behavior: smooth;
+  --background: #FFFFFF;
+  --foreground: #0F172A;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
-  letter-spacing: -0.035em;
+  font-family: var(--font-serif);
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Accessibility: interaction affordance per R-39 */
+a[href],
+button,
+summary,
+select,
+label[for],
+input[type="checkbox"],
+input[type="radio"],
+[role="button"],
+[role="tab"],
+[role="switch"] {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}
+
+/* Accessibility: focus ring standards per R-32 */
+:focus-visible {
+  outline: 2px solid #2E3191;
+  outline-offset: 2px;
+}
+
+/* Accessibility: respect user motion preferences per R-39 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
 }
 
 ::selection {
-  background-color: #ffc857;
-  color: #062720;
+  background-color: #2E3191;
+  color: #FFFFFF;
 }
 
 @layer components {
@@ -104,10 +163,14 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   @media (min-width: 640px) {
-    .shell { padding-inline: 1.75rem; }
+    .shell {
+      padding-inline: 1.75rem;
+    }
   }
   @media (min-width: 1024px) {
-    .shell { padding-inline: 2.5rem; }
+    .shell {
+      padding-inline: 2.5rem;
+    }
   }
 
   .btn {
@@ -117,71 +180,52 @@ h1, h2, h3, h4, h5, h6 {
     gap: 0.5rem;
     min-height: 2.75rem;
     padding: 0.7rem 1.3rem;
-    border-radius: 0.65rem;
+    border-radius: 0.5rem;
     font-weight: 700;
     font-size: 0.875rem;
     line-height: 1.1;
-    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
     white-space: nowrap;
   }
 
   .btn-primary {
-    background: var(--color-brand-700);
-    color: #fff;
+    background: #2E3191;
+    color: #FFFFFF;
   }
-  .btn-primary:hover { background: var(--color-brand-800); }
+  .btn-primary:hover {
+    background: #22257A;
+  }
 
   .btn-sun {
-    background: var(--color-sun-300);
-    color: var(--color-brand-950);
+    background: #C99726;
+    color: #FFFFFF;
   }
-  .btn-sun:hover { background: var(--color-sun-400); }
+  .btn-sun:hover {
+    background: #B3831B;
+  }
 
   .btn-outline {
-    border: 1.5px solid var(--color-line-strong);
-    color: var(--color-ink);
-    background: #fff;
+    border: 1.5px solid #CBD5E1;
+    color: #0F172A;
+    background: #FFFFFF;
   }
-  .btn-outline:hover { border-color: var(--color-brand-600); color: var(--color-brand-700); }
+  .btn-outline:hover {
+    border-color: #2E3191;
+    color: #2E3191;
+  }
 
   .btn-ghost-light {
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #FFFFFF;
     background: transparent;
   }
-  .btn-ghost-light:hover { background: rgba(255, 255, 255, 0.12); }
+  .btn-ghost-light:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
 
   .card {
-    background: #fff;
-    border: 1px solid var(--color-line);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: var(--radius-card);
   }
 }
-
-a[href], button, summary, select, label[for],
-input[type="checkbox"], input[type="radio"], [role="button"],
-[role="tab"], [role="switch"] { cursor: pointer; }
-
-button:disabled, input:disabled, select:disabled, textarea:disabled { cursor: not-allowed; }
-
-:focus-visible {
-  outline: 3px solid var(--color-brand-600);
-  outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-
-::-webkit-scrollbar { width: 8px; height: 8px; }
-::-webkit-scrollbar-track { background: #f4f1e8; }
-::-webkit-scrollbar-thumb { background: #c8c2b4; border-radius: 99px; }
-::-webkit-scrollbar-thumb:hover { background: #a89f8c; }
-
-.img-cover { object-fit: cover; width: 100%; height: 100%; display: block; }
-.img-fallback { background: #eef2ed; }

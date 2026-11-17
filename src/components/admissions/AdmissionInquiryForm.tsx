@@ -25,7 +25,7 @@ const gradeOptions = [
   { group: "Secondary", options: ["Grade 9", "Grade 10 (Transfer)"] },
   {
     group: "Higher secondary (+2)",
-    options: ["Grade 11 – Management", "Grade 11 – Computer Science", "Grade 11 – Education", "Grade 12 (Transfer)"],
+    options: ["Grade 11 (Management)", "Grade 11 (Computer Science)", "Grade 11 (Education)", "Grade 12 (Transfer)"],
   },
 ];
 

@@ -10,9 +10,9 @@ const documents = [
 ];
 
 const eligibility = [
-  { level: "Pre-primary (Nursery – UKG)", text: "Age 3 for Nursery, 4 for LKG and 5 for UKG by Baishakh of the intake year." },
-  { level: "Primary (Grades 1 – 5)", text: "Satisfactory completion of the previous grade with basic literacy and numeracy." },
-  { level: "Lower secondary & secondary (6 – 9)", text: "Valid transfer certificate and marksheet; diagnostic test in English and Math." },
+  { level: "Pre-primary (Nursery to UKG)", text: "Age 3 for Nursery, 4 for LKG and 5 for UKG by Baishakh of the intake year." },
+  { level: "Primary (Grades 1 to 5)", text: "Satisfactory completion of the previous grade with basic literacy and numeracy." },
+  { level: "Lower secondary & secondary (Grades 6 to 9)", text: "Valid transfer certificate and marksheet; diagnostic test in English and Math." },
   { level: "Grade 10 transfer", text: "Subject to District Education Coordination Unit guidelines and registration checks." },
   { level: "Higher secondary (+2)", text: "SEE pass with the minimum GPA required under NEB admission norms." },
 ];

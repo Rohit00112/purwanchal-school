@@ -17,7 +17,7 @@ const details = [
   { icon: MapPin, label: "Campus address", value: siteConfig.address, note: "Itahari Sub-Metropolitan, Ward 20" },
   { icon: Phone, label: "Telephone", value: siteConfig.phone, note: "Sunday to Friday, office hours", href: `tel:${siteConfig.phone}` },
   { icon: Mail, label: "Email", value: siteConfig.email, note: "For admission and general enquiries", href: `mailto:${siteConfig.email}` },
-  { icon: Clock, label: "Office hours", value: `${siteConfig.officeHours.start} – ${siteConfig.officeHours.end}`, note: siteConfig.officeHours.days },
+  { icon: Clock, label: "Office hours", value: `${siteConfig.officeHours.start} to ${siteConfig.officeHours.end}`, note: siteConfig.officeHours.days },
 ];
 
 export default function ContactPage() {

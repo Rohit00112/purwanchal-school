@@ -1,91 +1,99 @@
 import Image from "next/image";
+import { Check } from "lucide-react";
 import { images } from "@/config/images";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const levels = [
   {
     id: "ecd",
-    tag: "Early years",
-    title: "Pre-Primary",
-    grades: "Nursery – UKG",
-    text: "A gentle start where young learners build language, number sense and confidence through stories, songs and hands-on activities.",
-    points: ["Phonics and early reading", "Sensory and motor activities", "Social skills and routines"],
+    tag: "Early Years",
+    title: "Pre-Primary Education",
+    grades: "Nursery to UKG",
+    text: "A warm and stimulating start where young learners build phonetics, number sense, vocabulary, and social confidence through guided play, storytelling, and motor activities.",
+    points: ["Phonics and early English-Nepali reading habits", "Sensory, creative arts, and fine-motor activities", "Cooperative social habits, sharing, and hygiene routines"],
     image: images.kidsLearning,
-    alt: "Illustrative photograph of young children learning",
+    alt: "Young children learning in a classroom",
   },
   {
     id: "primary",
     tag: "Foundations",
     title: "Primary School",
-    grades: "Grades 1 – 5",
-    text: "Strong habits in reading, writing and mathematics, supported by environmental studies, languages and introductions to computing.",
-    points: ["English and Nepali literacy", "Mathematics and general science", "Art, music and physical education"],
+    grades: "Grades 1 to 5",
+    text: "Building strong fluency in English and Nepali, solid arithmetic grounding, basic environmental science, and creative exploration in art and physical movement.",
+    points: ["Structured literacy in English and Nepali", "Foundational mathematics and introductory science", "Regular handwriting, drawing, and physical education"],
     image: images.heroClassroom,
-    alt: "Illustrative photograph of a classroom",
+    alt: "Primary school students engaged in classroom discussion",
   },
   {
     id: "lower-secondary",
-    tag: "Exploration",
+    tag: "Analytical Exploration",
     title: "Lower Secondary",
-    grades: "Grades 6 – 8",
-    text: "Learners move into analytical thinking with practical science, social sciences and computer work.",
-    points: ["Science with practical work", "Computer applications", "Projects and field work"],
+    grades: "Grades 6 to 8",
+    text: "Transitioning toward deeper analytical thinking, laboratory-based science explorations, social studies, and practical computing skills.",
+    points: ["Integrated science with hands-on lab sessions", "Computer literacy, basic typing, and office tools", "Group research projects and public speaking sessions"],
     image: images.microscope,
-    alt: "Illustrative photograph of a microscope",
+    alt: "Student using microscope in science laboratory",
   },
   {
     id: "secondary",
-    tag: "Board preparation",
-    title: "Secondary / SEE",
-    grades: "Grades 9 – 10",
-    text: "Systematic preparation for the Secondary Education Examination, with regular assessments and guidance.",
-    points: ["Curriculum for Grades 9 and 10", "Regular class assessments", "Preparation for SEE"],
+    tag: "National Board Preparation",
+    title: "Secondary School (SEE)",
+    grades: "Grades 9 to 10",
+    text: "Rigorous academic preparation for the National Secondary Education Examination (SEE) with focused syllabus coverage, question-solving clinics, and mock board tests.",
+    points: ["Full coverage of the national SEE curriculum", "Dedicated science practical examinations in laboratory", "Intensive revision cycles and individual counseling"],
     image: images.study,
-    alt: "Illustrative photograph of a student studying",
+    alt: "Secondary students preparing for board exams",
   },
 ];
 
 export function ProgramLevelsList() {
   return (
-    <section className="bg-cream py-20 sm:py-24 lg:py-28">
+    <section className="bg-slate-bg py-20 sm:py-24 lg:py-28 border-b border-line">
       <div className="shell">
         <SectionHeading
-          title={<>Every stage, <span className="font-editorial italic font-medium text-brand-600">thoughtfully designed</span>.</>}
-          description="Five academic levels, from the early years through SEE and +2."
+          badge="Academic Progression"
+          title={<>Every Stage, <span className="font-serif italic text-brand-700">Thoughtfully Designed</span>.</>}
+          description="A progressive learning structure from Nursery to Grade 10, preparing students for competitive higher education."
         />
 
-        <div className="mt-14 space-y-6">
+        <div className="mt-14 space-y-8">
           {levels.map((level, i) => {
             const reversed = i % 2 === 1;
             return (
               <div
                 key={level.id}
                 id={level.id}
-                className="grid scroll-mt-32 rounded-lg border border-line bg-white lg:grid-cols-12"
+                className="grid scroll-mt-32 overflow-hidden rounded-2xl border border-line bg-white shadow-xs transition-all duration-200 hover:border-brand-700 hover:shadow-md lg:grid-cols-12"
               >
-                <div className={`relative min-h-[220px] overflow-hidden lg:col-span-5 ${reversed ? "lg:order-2 lg:rounded-r-lg" : "lg:rounded-l-lg"}`}>
+                <div className={`relative min-h-[260px] overflow-hidden bg-brand-900 lg:col-span-5 ${reversed ? "lg:order-2" : ""}`}>
                   <Image
                     src={level.image}
                     alt={level.alt}
                     fill
                     sizes="(max-width: 1024px) 100vw, 40vw"
-                    className="img-cover object-center"
+                    className="object-cover object-center transition-transform duration-500 hover:scale-105"
                   />
-                  <span className="absolute left-5 top-5 rounded bg-white/95 px-3 py-1.5 text-[0.65rem] font-extrabold uppercase tracking-[0.14em] text-brand-700">
+                  <span className="absolute left-4 top-4 rounded-md bg-brand-900/90 px-3 py-1 text-xs font-bold uppercase tracking-wider text-sun-300 backdrop-blur-xs">
                     {level.tag}
-                  </span>
-                  <span className="absolute bottom-4 left-5 rounded bg-white/95 px-2 py-1 text-[0.65rem] font-semibold text-ink">
-                    Illustrative photograph
                   </span>
                 </div>
 
-                <div className={`p-7 sm:p-9 lg:col-span-7 ${reversed ? "lg:order-1" : ""}`}>
-                  <span className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand-600">{level.grades}</span>
-                  <h3 className="mt-2 text-2xl font-extrabold text-ink sm:text-3xl">{level.title}</h3>
-                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-ink-soft">{level.text}</p>
-                  <ul className="mt-6 list-disc space-y-2 pl-5 text-sm text-ink-soft">
+                <div className={`flex flex-col justify-center p-7 sm:p-9 lg:col-span-7 ${reversed ? "lg:order-1" : ""}`}>
+                  <span className="text-xs font-extrabold uppercase tracking-wider text-brand-700">
+                    {level.grades}
+                  </span>
+                  <h3 className="mt-2 font-serif text-2xl font-bold text-ink sm:text-3xl">
+                    {level.title}
+                  </h3>
+                  <p className="mt-3 text-sm sm:text-base leading-relaxed text-ink-soft">
+                    {level.text}
+                  </p>
+                  <ul className="mt-6 space-y-2.5 text-xs sm:text-sm text-ink-soft">
                     {level.points.map((point) => (
-                      <li key={point}>{point}</li>
+                      <li key={point} className="flex items-start gap-2.5">
+                        <Check className="size-4 text-brand-600 shrink-0 mt-0.5" aria-hidden="true" />
+                        <span>{point}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>

@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const faqs = [
-  { q: "When does the new academic session begin?", a: "The session begins in Baishakh (mid-April). Applications open around Chaitra (March–April). Grade 11 admissions follow the publication of SEE results." },
+  { q: "When does the new academic session begin?", a: "The session begins in Baishakh (mid-April). Applications open around Chaitra (March to April). Grade 11 admissions follow the publication of SEE results." },
   { q: "Which +2 streams do you offer?", a: "Three NEB-affiliated streams: Management, Computer Science and Education, each with subject options that lead to clear university pathways." },
-  { q: "Is an entrance test required?", a: "Pre-primary admission is based on a friendly interaction. Grades 1–9 and 11 have short diagnostic assessments in English, Mathematics and Science to guide placement." },
+  { q: "Is an entrance test required?", a: "Pre-primary admission is based on a friendly interaction. Grades 1 to 9 and 11 have short diagnostic assessments in English, Mathematics and Science to guide placement." },
   { q: "Do you provide school transportation?", a: "Yes. Our buses cover Itahari-20, Tarahara and surrounding neighbourhoods. Routes and pick-up points are confirmed at registration." },
-  { q: "How will I track my child's progress?", a: "Through terminal report cards, parent–teacher meetings and our mobile portal, which delivers attendance, routines and homework updates to your phone." },
+  { q: "How will I track my child's progress?", a: "Through terminal report cards, parent-teacher meetings and our mobile portal, which delivers attendance, routines and homework updates to your phone." },
   { q: "Are scholarships available?", a: "Yes. Concessions for board toppers, SEE high achievers, talented athletes and students eligible under municipal scholarship guidelines." },
 ];
 
