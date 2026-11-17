@@ -18,6 +18,7 @@ import {
   deleteGalleryMedia, 
   GalleryFormData 
 } from "@/server/actions/admin";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 
 interface GalleryCategoryItem {
   id: string;
@@ -316,38 +317,13 @@ export function GalleryClient({
             </div>
 
             <form onSubmit={handleSubmit} className="mt-6 space-y-4 text-xs">
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">
-                  Image URL *
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="https://images.unsplash.com/... or /images/..."
-                  value={formImageUrl}
-                  onChange={(e) => setFormImageUrl(e.target.value)}
-                  className="w-full rounded-lg border border-line p-2.5 text-xs text-ink placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-brand-700 font-mono"
-                />
-              </div>
-
-              {formImageUrl && (
-                <div className="rounded-lg border border-line p-2 bg-slate-50">
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1">
-                    Live Preview
-                  </span>
-                  <div className="relative aspect-video w-full rounded overflow-hidden bg-slate-200">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={formImageUrl}
-                      alt="Preview"
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLElement).style.display = "none";
-                      }}
-                    />
-                  </div>
-                </div>
-              )}
+              <ImageUpload
+                value={formImageUrl}
+                onChange={setFormImageUrl}
+                label="Photograph File"
+                required
+                description="Upload an authentic campus, lab, classroom or event photograph from your computer."
+              />
 
               <div>
                 <label className="font-bold text-slate-700 block mb-1">

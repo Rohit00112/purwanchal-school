@@ -21,6 +21,7 @@ import {
   deleteNewsArticle,
   NewsFormData 
 } from "@/server/actions/admin";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { formatDateShort } from "@/lib/utils";
 import { PublicationStatus } from "@prisma/client";
 
@@ -472,18 +473,12 @@ export function NewsClient({
                 />
               </div>
 
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">
-                  Notice Banner Image URL (Optional)
-                </label>
-                <input
-                  type="text"
-                  placeholder="https://... or /images/..."
-                  value={formImage}
-                  onChange={(e) => setFormImage(e.target.value)}
-                  className="w-full rounded-lg border border-line p-2.5 text-xs text-ink placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-brand-700"
-                />
-              </div>
+              <ImageUpload
+                value={formImage}
+                onChange={setFormImage}
+                label="Notice Banner Image (Optional)"
+                description="Upload an official circular scan, document, or photo from your computer."
+              />
 
               <div className="flex items-center gap-2 pt-2">
                 <input

@@ -20,6 +20,7 @@ import {
   deleteEvent, 
   EventFormData 
 } from "@/server/actions/admin";
+import { ImageUpload } from "@/components/admin/ImageUpload";
 import { formatDateShort } from "@/lib/utils";
 import { PublicationStatus } from "@prisma/client";
 
@@ -454,33 +455,25 @@ export function EventsClient({ initialEvents }: { initialEvents: EventItem[] }) 
                 />
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">
-                    Event Banner Image URL (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="https://... or /images/..."
-                    value={formImage}
-                    onChange={(e) => setFormImage(e.target.value)}
-                    className="w-full rounded-lg border border-line p-2.5 text-xs text-ink placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-brand-700"
-                  />
-                </div>
+              <ImageUpload
+                value={formImage}
+                onChange={setFormImage}
+                label="Event Promotional Banner (Optional)"
+                description="Upload an athletic meet poster, exhibition photo, or celebration banner from your computer."
+              />
 
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">
-                    Publication Status
-                  </label>
-                  <select
-                    value={formStatus}
-                    onChange={(e) => setFormStatus(e.target.value as PublicationStatus)}
-                    className="w-full rounded-lg border border-line p-2.5 text-xs text-ink focus:outline-hidden focus:ring-2 focus:ring-brand-700"
-                  >
-                    <option value={PublicationStatus.PUBLISHED}>Published (Visible on site)</option>
-                    <option value={PublicationStatus.DRAFT}>Draft (Internal preparation)</option>
-                  </select>
-                </div>
+              <div>
+                <label className="font-bold text-slate-700 block mb-1">
+                  Publication Status
+                </label>
+                <select
+                  value={formStatus}
+                  onChange={(e) => setFormStatus(e.target.value as PublicationStatus)}
+                  className="w-full rounded-lg border border-line p-2.5 text-xs text-ink focus:outline-hidden focus:ring-2 focus:ring-brand-700"
+                >
+                  <option value={PublicationStatus.PUBLISHED}>Published (Visible on site)</option>
+                  <option value={PublicationStatus.DRAFT}>Draft (Internal preparation)</option>
+                </select>
               </div>
 
               <div className="flex items-center gap-2 pt-2">
