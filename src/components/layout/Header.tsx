@@ -181,8 +181,8 @@ export function Header() {
                       aria-haspopup="true"
                       aria-controls={panelId}
                       className={cn(
-                        "inline-flex h-11 items-center gap-1 rounded-lg px-3 text-[0.8rem] font-bold transition-colors",
-                        active ? "bg-brand-50 text-brand-700" : "text-ink-soft hover:bg-cream-deep hover:text-brand-800"
+                        "inline-flex h-11 items-center gap-1.5 px-3 text-[0.82rem] font-semibold transition-colors",
+                        active ? "text-brand-700 font-bold border-b-2 border-brand-700" : "text-slate-700 hover:text-brand-700"
                       )}
                     >
                       {item.label}
@@ -224,8 +224,8 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "inline-flex h-11 items-center rounded-lg px-3 text-[0.8rem] font-bold transition-colors",
-                    active ? "bg-brand-50 text-brand-700" : "text-ink-soft hover:bg-cream-deep hover:text-brand-800"
+                    "inline-flex h-11 items-center px-3 text-[0.82rem] font-semibold transition-colors",
+                    active ? "text-brand-700 font-bold border-b-2 border-brand-700" : "text-slate-700 hover:text-brand-700"
                   )}
                 >
                   {item.label}
@@ -234,15 +234,18 @@ export function Header() {
             })}
           </nav>
 
-          <div className="flex items-center gap-2">
-            <Link href="/admissions" className="btn btn-sun hidden !min-h-11 !px-4 !text-[0.78rem] lg:inline-flex">
-              Admission enquiry
+          <div className="flex items-center gap-3">
+            <Link 
+              href="/admissions" 
+              className="btn btn-primary hidden xl:inline-flex !min-h-11 !px-5 !text-xs !font-bold shadow-xs hover:bg-brand-800"
+            >
+              Apply for Admission
             </Link>
             <button
               ref={toggleRef}
               type="button"
               onClick={() => (mobileOpen ? setMobileOpen(false) : openMobile())}
-              className="inline-flex size-11 items-center justify-center rounded-lg border border-line bg-white text-brand-900"
+              className="inline-flex xl:hidden size-11 items-center justify-center rounded-lg border border-line bg-white text-brand-900 hover:bg-slate-50"
               aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
               aria-expanded={mobileOpen}
               aria-controls="mobile-navigation"

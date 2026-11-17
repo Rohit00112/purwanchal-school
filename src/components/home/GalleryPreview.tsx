@@ -86,14 +86,9 @@ export function GalleryPreview() {
 
               {/* Top Category Badge */}
               <div className="absolute top-3 left-3">
-                <span className="rounded-md bg-white/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-xs">
+                <span className="rounded bg-black/60 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                   {item.category}
                 </span>
-              </div>
-
-              {/* View Indicator */}
-              <div className="absolute top-3 right-3 flex size-8 items-center justify-center rounded-full bg-white/20 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 backdrop-blur-xs">
-                <Eye className="size-4" aria-hidden="true" />
               </div>
 
               {/* Bottom Caption */}

@@ -36,22 +36,18 @@ export function SectionHeading({
     >
       <Reveal className={cn("max-w-2xl", centered && "mx-auto")}>
         {badge && (
-          <div className="mb-3">
-            <span
-              className={cn(
-                "inline-block rounded-md px-2.5 py-1 text-xs font-bold uppercase tracking-wider",
-                light
-                  ? "bg-white/10 text-sun-300 border border-white/20"
-                  : "bg-brand-50 text-brand-700 border border-brand-100"
-              )}
-            >
-              {badge}
-            </span>
-          </div>
+          <p
+            className={cn(
+              "mb-2 text-xs font-bold uppercase tracking-wider",
+              light ? "text-sun-300" : "text-brand-700"
+            )}
+          >
+            {badge}
+          </p>
         )}
         <h2
           className={cn(
-            "text-3xl font-extrabold leading-[1.12] sm:text-4xl lg:text-[2.5rem]",
+            "font-serif text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight leading-tight",
             light ? "text-white" : "text-ink"
           )}
         >
@@ -60,8 +56,8 @@ export function SectionHeading({
         {description && (
           <p
             className={cn(
-              "mt-3 text-[0.95rem] leading-relaxed sm:text-base",
-              light ? "text-white/80" : "text-ink-soft"
+              "mt-3 text-sm sm:text-base leading-relaxed",
+              light ? "text-white/80" : "text-slate-600"
             )}
           >
             {description}

@@ -5,8 +5,7 @@ import {
   ArrowRight, 
   FileText, 
   Clock, 
-  ChevronRight,
-  Sparkle
+  ChevronRight
 } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, GraduationCap, Laptop, Sparkles, Check } from "lucide-react";
+import { ArrowRight, BookOpen, GraduationCap, Laptop, Check } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const academicLevels = [
@@ -53,7 +53,7 @@ const plusTwoStreams = [
 
 export function AcademicPrograms() {
   return (
-    <section className="bg-white py-20 sm:py-24 lg:py-28 border-b border-line">
+    <section className="bg-white py-16 sm:py-20 lg:py-24 border-b border-line">
       <div className="shell">
         <SectionHeading
           badge="Curriculum & Pathways"
@@ -62,7 +62,7 @@ export function AcademicPrograms() {
           action={
             <Link
               href="/academics"
-              className="btn btn-outline !text-sm"
+              className="btn btn-outline !text-xs sm:!text-sm"
             >
               View Full Academic Details
               <ArrowRight className="size-4" aria-hidden="true" />
@@ -75,25 +75,25 @@ export function AcademicPrograms() {
           {academicLevels.map((lvl) => (
             <div
               key={lvl.level}
-              className="group flex flex-col justify-between rounded-2xl border border-line bg-slate-bg p-6 transition-all duration-200 hover:border-brand-700 hover:bg-white hover:shadow-md"
+              className="flex flex-col justify-between rounded-xl border border-line bg-slate-bg p-6 transition-colors hover:border-brand-700 hover:bg-white"
             >
               <div>
-                <span className="inline-block rounded-md bg-brand-50 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider text-brand-700">
+                <span className="inline-block rounded bg-brand-50 px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-brand-700">
                   {lvl.tag}
                 </span>
 
-                <h3 className="mt-3 font-serif text-lg font-bold text-ink group-hover:text-brand-700 transition-colors">
+                <h3 className="mt-3 font-serif text-lg font-bold text-ink">
                   {lvl.level}
                 </h3>
                 <p className="text-xs font-semibold text-sun-500 uppercase tracking-wide mt-0.5">
                   {lvl.grades}
                 </p>
 
-                <p className="mt-3 text-xs leading-relaxed text-ink-soft">
+                <p className="mt-3 text-xs leading-relaxed text-slate-600">
                   {lvl.desc}
                 </p>
 
-                <ul className="mt-4 space-y-1.5 border-t border-line/80 pt-3 text-[11px] text-ink-soft">
+                <ul className="mt-4 space-y-1.5 border-t border-line/80 pt-3 text-[11px] text-slate-600">
                   {lvl.features.map((feat) => (
                     <li key={feat} className="flex items-center gap-2">
                       <Check className="size-3 text-brand-600 shrink-0" aria-hidden="true" />
@@ -105,7 +105,7 @@ export function AcademicPrograms() {
 
               <Link
                 href="/academics"
-                className="mt-6 inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:text-brand-900 group-hover:underline"
+                className="mt-6 inline-flex min-h-[44px] items-center text-xs font-bold text-brand-700 hover:underline"
               >
                 Learn more about {lvl.level} →
               </Link>
@@ -113,26 +113,25 @@ export function AcademicPrograms() {
           ))}
         </div>
 
-        {/* Higher Secondary (+2) Featured Banner */}
-        <div className="mt-10 overflow-hidden rounded-2xl border-2 border-brand-700/20 bg-gradient-to-br from-brand-950 via-brand-900 to-brand-950 p-7 text-white shadow-xl sm:p-10">
+        {/* Higher Secondary (+2) Featured Block */}
+        <div className="mt-10 overflow-hidden rounded-xl border border-brand-800 bg-brand-900 p-7 text-white sm:p-10">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 rounded-full border border-sun-400/30 bg-sun-400/10 px-3.5 py-1 text-xs font-bold text-sun-300">
-                <GraduationCap className="size-4" aria-hidden="true" />
-                NEB Affiliated Higher Secondary Education (+2)
-              </div>
-              <h3 className="mt-3 font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
-                Grades 11 &amp; 12: Specialization for Higher Studies
+              <span className="text-xs font-bold uppercase tracking-wider text-sun-300">
+                National Examination Board (NEB) Affiliated
+              </span>
+              <h3 className="mt-1.5 font-serif text-2xl sm:text-3xl font-bold text-white leading-snug">
+                Higher Secondary (+2) Education: Grades 11 &amp; 12
               </h3>
               <p className="mt-2 text-sm text-white/80 leading-relaxed">
                 Purwanchal Higher Secondary School offers three proven academic streams designed to equip
-                students for competitive university admissions and professional careers.
+                students for university entrance examinations and professional career pathways.
               </p>
             </div>
 
             <Link
               href="/academics#plus-two"
-              className="btn btn-sun shrink-0 !px-6 !py-3.5 !text-sm !font-bold self-start lg:self-center"
+              className="btn btn-sun shrink-0 !px-6 !py-3.5 !text-xs sm:!text-sm !font-bold self-start lg:self-center"
             >
               Explore +2 Programs &amp; Streams
             </Link>
@@ -142,7 +141,7 @@ export function AcademicPrograms() {
             {plusTwoStreams.map((stream) => (
               <div
                 key={stream.name}
-                className="rounded-xl border border-white/15 bg-white/5 p-5 backdrop-blur-xs transition-colors hover:border-sun-400/50"
+                className="rounded-lg border border-white/10 bg-white/5 p-5"
               >
                 <div className="flex items-center justify-between">
                   <h4 className="font-serif text-lg font-bold text-sun-300">
@@ -151,7 +150,7 @@ export function AcademicPrograms() {
                   <span className="text-[11px] font-semibold text-white/60">NEB Nepal</span>
                 </div>
                 <p className="mt-2 text-xs text-white/80 leading-relaxed">
-                  <strong className="text-white">Subjects: </strong>
+                  <strong className="text-white">Key Subjects: </strong>
                   {stream.focus}
                 </p>
                 <p className="mt-2 text-[11px] text-white/60 italic leading-snug">
